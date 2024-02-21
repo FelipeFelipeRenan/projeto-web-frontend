@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import "./Login.scss";
+import {useNavigate } from "react-router-dom";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const handleLogin = () => {
     // Simples lógica de autenticação (substitua por lógica real)
     if (username === "usuario" && password === "senha") {
       // Navega para a página home se o login for bem-sucedido
+      
+      navigate('/home');
     } else {
       alert("Credenciais inválidas");
     }
