@@ -1,24 +1,34 @@
 .header-container {
-    background-color: aqua;
-    width: 100%;
-    margin: 0;
-    padding: 10px; 
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    height: 50px;
+  background-color: aqua;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; // Centraliza verticalmente os itens
+  height: 70px; // Ajusta a altura conforme necessário
+
+  a{
     
+  }
 
-    .linksto{
-      display: flex;
-      justify-content: space-between;
+  .linksto {
+    display: flex;
+    justify-content: flex-start; // Alinha os links à esquerda
 
-      // margem esquerda dos links à esquerda no header
-      *{
-        text-decoration: none;
-        
-        margin-left: 30px;
+    // Estilos para todos os links dentro de .linksto
+    a {
+      text-decoration: none;
+      margin-left: 30px; // Margem entre os links
+      color: #333; // Cor do texto
+      font-size: 16px; // Tamanho da fonte
+      font-weight: bold; // Negrito
+      transition: color 0.3s ease; // Transição suave da cor
+
+      &:hover {
+        color: #45a049; // Cor do texto ao passar o mouse
       }
     }
   }
-  
+}

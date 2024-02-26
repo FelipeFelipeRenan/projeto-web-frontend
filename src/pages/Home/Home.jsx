@@ -3,6 +3,7 @@ import Header from "../../components/Header/Header";
 import Task from "../../components/Task/Task";
 import Modal from "../../components/Modal/Modal";
 import "./Home.scss";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,6 +14,8 @@ function Home() {
     { id: 3, title: "Tarefa 3", description: "Descrição da tarefa 3", priority: "Baixa", status: "Fechada" },
   ]);
 
+  const navigate = useNavigate();
+
   const handleTaskClick = (taskInfo) => {
     setSelectedTask(taskInfo);
     setIsModalOpen(true);
@@ -22,12 +25,21 @@ function Home() {
     setIsModalOpen(false);
   };
 
+  const handleLogout = () => {
+    // Implemente a lógica de logout aqui
+    navigate("/login");
+  };
+
   return (
-    <>
-    <div className="home-wrapper">
-      <Header />
-      <main className="home-container">
-        <h1 className="home-title">Lista de Tarefas</h1>
+    <div className="home-container">
+      <Header/>
+      <div className="surface-card">
+        <div className="text-center mb-5">
+          <div className="text-900 text-3xl font-medium mb-3">
+            Lista de Tarefas
+          </div>
+        </div>
+
         <div className="tasks-container">
           {tasks.map((task) => (
             <div className="task-card" key={task.id} onClick={() => handleTaskClick(task)}>
@@ -35,10 +47,10 @@ function Home() {
             </div>
           ))}
         </div>
-      </main>
-      {isModalOpen && <Modal taskInfo={selectedTask} onClose={closeModal} />}
+
       </div>
-    </>
+      {isModalOpen && <Modal taskInfo={selectedTask} onClose={closeModal} />}
+    </div>
   );
 }
 
