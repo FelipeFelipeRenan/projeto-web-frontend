@@ -1,0 +1,36 @@
+.task-card {
+    background-color: #ffffff; /* Cor de fundo branca */
+    border-radius: 8px; /* Borda arredondada */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Transições suaves */
+    width: 300px; /* Largura do card */
+    padding: 20px; /* Preenchimento interno */
+  
+    &:hover {
+      transform: translateY(-4px); /* Efeito de levantamento ao passar o mouse */
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Sombra mais intensa ao passar o mouse */
+    }
+  
+    .task-title {
+      color: #333333; /* Cor do título */
+      font-size: 18px; /* Tamanho da fonte */
+      font-weight: 600; /* Peso da fonte */
+      margin-bottom: 8px; /* Margem inferior */
+    }
+  
+    .task-info {
+      color: #666666; /* Cor das informações adicionais */
+      font-size: 14px; /* Tamanho da fonte */
+    }
+  
+    .task-priority {
+      color: #4caf50; /* Cor da prioridade */
+      font-weight: bold; /* Texto em negrito */
+    }
+  
+    .task-status {
+      color: #ff5722; /* Cor do status */
+      font-weight: bold; /* Texto em negrito */
+    }
+  }
+  

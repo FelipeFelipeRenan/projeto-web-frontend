@@ -1,0 +1,50 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Sobreposição semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px; /* Borda mais arredondada */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra mais intensa */
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto; /* Habilita scroll quando o conteúdo for muito grande */
+  position: relative; /* Posição relativa para o posicionamento do botão */
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: transparent;
+  border: none;
+  font-size: 24px; /* Tamanho do botão aumentado */
+  cursor: pointer;
+  color: #555; /* Cor do botão */
+  transition: color 0.3s ease; /* Transição suave da cor */
+}
+
+.close-button:hover {
+  color: #f44336; /* Cor do botão alterada ao passar o mouse */
+}
+
+h2 {
+  margin-bottom: 20px; /* Margem inferior aumentada */
+  color: #333; /* Cor do título */
+  font-size: 28px; /* Tamanho da fonte aumentado */
+}
+
+p {
+  margin-bottom: 15px; /* Margem inferior aumentada */
+  color: #666; /* Cor do texto */
+  font-size: 18px; /* Tamanho da fonte aumentado */
+}

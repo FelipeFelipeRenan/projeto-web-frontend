@@ -1,21 +1,29 @@
+.home-wrapper {
+  display: flex; /* Exibe os elementos filhos em linha */
+  flex-direction: column; /* Exibe os elementos filhos em coluna */
+  justify-content: center; /* Centraliza o conteúdo verticalmente */
+  align-items: center; /* Centraliza o conteúdo horizontalmente */
+  flex-grow: 1; /* Faz com que o elemento ocupe o espaço restante */
+}
+
 .home-container {
-    background-color: #fff; /* Altere a cor de fundo conforme necessário */
-    padding: 20px; /* Adicione o preenchimento desejado */
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 1200px; /* Defina a largura máxima do conteúdo conforme necessário */
-    margin: 0 auto; /* Centralize o conteúdo na página */
-  }
-  
-  .home-title {
-    color: #333; /* Defina a cor do texto conforme necessário */
-    font-size: 24px; /* Defina o tamanho da fonte conforme necessário */
-    margin-bottom: 20px; /* Adicione margem inferior conforme necessário */
-  }
-  
-  .home-content {
-    color: #666; /* Defina a cor do texto conforme necessário */
-    font-size: 16px; /* Defina o tamanho da fonte conforme necessário */
-    line-height: 1.5; /* Defina a altura da linha conforme necessário */
-  }
-  
+  display: flex; /* Exibe os elementos filhos em linha */
+  flex-direction: column; /* Exibe os elementos filhos em coluna */
+  justify-content: center; /* Centraliza o conteúdo verticalmente */
+  align-items: center; /* Centraliza o conteúdo horizontalmente */
+  flex-grow: 1; /* Faz com que o elemento ocupe todo o espaço disponível */
+}
+
+
+.home-title {
+  color: #333; /* Defina a cor do texto conforme necessário */
+  font-size: 24px; /* Defina o tamanho da fonte conforme necessário */
+  margin-bottom: 20px; /* Adicione margem inferior conforme necessário */
+}
+
+.tasks-container {
+  display: flex; /* Display flex para posicionar os cards em linha */
+  flex-wrap: wrap; /* Permitir que os cards quebrem linha se necessário */
+  justify-content: flex-start; /* Alinhamento inicial dos cards na linha */
+  gap: 20px; /* Espaçamento entre os cards */
+}

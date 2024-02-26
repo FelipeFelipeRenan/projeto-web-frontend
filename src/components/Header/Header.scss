@@ -4,5 +4,21 @@
     margin: 0;
     padding: 10px; 
     box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    
+
+    .linksto{
+      display: flex;
+      justify-content: space-between;
+
+      // margem esquerda dos links à esquerda no header
+      *{
+        text-decoration: none;
+        
+        margin-left: 30px;
+      }
+    }
   }
   
