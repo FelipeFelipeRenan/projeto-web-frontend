@@ -1,0 +1,48 @@
+.main-home-container {
+    background-color: #f0f0f0; /* Cor de fundo */
+    padding: 20px; /* Espaçamento interno */
+  }
+  
+  .main-home-title {
+    color: #333; /* Cor do título */
+    font-size: 24px; /* Tamanho da fonte do título */
+    margin-bottom: 20px; /* Margem inferior do título */
+  }
+  
+  .filter-buttons {
+    margin-bottom: 20px; /* Espaçamento inferior dos botões de filtro */
+  }
+  
+  .filter-buttons button {
+    background-color: #007bff; /* Cor de fundo dos botões de filtro */
+    color: #fff; /* Cor do texto dos botões de filtro */
+    border: none; /* Sem borda */
+    border-radius: 5px; /* Borda arredondada */
+    padding: 8px 16px; /* Espaçamento interno */
+    margin-right: 10px; /* Margem direita entre os botões */
+    cursor: pointer; /* Cursor ao passar o mouse */
+  }
+  
+  .filter-buttons button:last-child {
+    margin-right: 0; /* Remove a margem direita do último botão */
+  }
+  
+  .tasks-container {
+    display: grid; /* Layout de grid para as tarefas */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Colunas automáticas com largura mínima de 200px */
+    gap: 20px; /* Espaçamento entre as tarefas */
+  }
+  
+  .task-card {
+    background-color: #fff; /* Cor de fundo dos cards de tarefa */
+    padding: 15px; /* Espaçamento interno dos cards */
+    border-radius: 8px; /* Borda arredondada */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+    cursor: pointer; /* Cursor ao passar o mouse */
+    transition: box-shadow 0.3s ease; /* Transição suave da sombra */
+  }
+  
+  .task-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra mais intensa ao passar o mouse */
+  }
+  
