@@ -1,17 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import Task from "../../components/Task/Task";
 import Modal from "../../components/Modal/Modal";
 import "./UserHome.scss";
-import { useNavigate, useParams } from "react-router-dom"; // Importe o useParams para obter o ID do participante
+import { useNavigate, useParams } from "react-router-dom";
 import { useTasks } from "../../contexts/TasksContext";
 
 function UserHome() {
-  const { id } = useParams(); // Obtém o ID do participante da URL
-  const { tasks } = useTasks(id); // Obtém as tarefas associadas ao participante com o ID fornecido
+  const { tasks } = useTasks();
+  const { id } = useParams();
+  const [participantTasks, setParticipantTasks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Filtra as tarefas atribuídas ao participante com base no ID na URL
+    const filteredTasks = tasks.filter((task) => task.assignedTo === parseInt(id));
+    setParticipantTasks(filteredTasks);
+  }, [tasks, id]);
 
   const handleTaskClick = (taskInfo) => {
     setSelectedTask(taskInfo);
@@ -30,16 +37,16 @@ function UserHome() {
   return (
     <>
       <Header />
-      <div className="home-container">
+      <div className="participant-page-container">
         <div className="surface-card">
           <div className="text-center mb-5">
             <div className="text-900 text-3xl font-medium mb-3">
-              Lista de Tarefas
+              Tarefas do Participante
             </div>
           </div>
 
           <div className="tasks-container">
-            {tasks.map((task) => (
+            {participantTasks.map((task) => (
               <div
                 className="task-card"
                 key={task.id}

@@ -6,11 +6,11 @@ const TasksContext = createContext();
 // Componente de provedor do contexto que encapsula toda a aplicação
 export const TasksProvider = ({ children }) => {
   const [tasks, setTasks] = useState([
-    { id: 1, title: 'Tarefa 1', description: 'Descrição da tarefa 1', priority: 'Alta', status: 'Aberta' },
-    { id: 2, title: 'Tarefa 2', description: 'Descrição da tarefa 2', priority: 'Média', status: 'Disponível' },
-    { id: 3, title: 'Tarefa 3', description: 'Descrição da tarefa 3', priority: 'Baixa', status: 'Fechada' },
-    { id: 4, title: 'Tarefa 4', description: 'Descrição da tarefa 4', priority: 'Alta', status: 'Fechada' },
-    { id: 5, title: 'Tarefa 5', description: 'Descrição da tarefa 5', priority: 'Baixa', status: 'Aberta' },
+    { id: 1, title: 'Tarefa 1', description: 'Descrição da tarefa 1', priority: 'Alta', status: 'Aberta', assignedTo: 1 },
+    { id: 2, title: 'Tarefa 2', description: 'Descrição da tarefa 2', priority: 'Média', status: 'Disponível', assignedTo: null },
+    { id: 3, title: 'Tarefa 3', description: 'Descrição da tarefa 3', priority: 'Baixa', status: 'Fechada', assignedTo: 2 },
+    { id: 4, title: 'Tarefa 4', description: 'Descrição da tarefa 4', priority: 'Alta', status: 'Fechada', assignedTo: 2 },
+    { id: 5, title: 'Tarefa 5', description: 'Descrição da tarefa 5', priority: 'Baixa', status: 'Aberta', assignedTo: 1 },
     // Adicione mais tarefas conforme necessário
   ]);
 
@@ -18,8 +18,16 @@ export const TasksProvider = ({ children }) => {
     setTasks([...tasks, newTask]);
   };
 
-  const updateTask = (updatedTask) => {
-    setTasks(tasks.map(task => task.id === updatedTask.id ? updatedTask : task));
+  const assignTaskToParticipant = (taskId, participantId) => {
+    setTasks(tasks.map(task => task.id === taskId ? { ...task, assignedTo: participantId } : task));
+  };
+
+  const markTaskAsCompleted = (taskId) => {
+    setTasks(tasks.map(task => task.id === taskId ? { ...task, status: 'Fechada' } : task));
+  };
+
+  const adjustTaskAvailability = (taskId, availability) => {
+    setTasks(tasks.map(task => task.id === taskId ? { ...task, status: availability } : task));
   };
 
   const deleteTask = (taskId) => {
@@ -27,7 +35,7 @@ export const TasksProvider = ({ children }) => {
   };
 
   return (
-    <TasksContext.Provider value={{ tasks, addTask, updateTask, deleteTask }}>
+    <TasksContext.Provider value={{ tasks, addTask, assignTaskToParticipant, markTaskAsCompleted, adjustTaskAvailability, deleteTask }}>
       {children}
     </TasksContext.Provider>
   );
