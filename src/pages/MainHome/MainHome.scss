@@ -1,48 +1,58 @@
-.main-home-container {
-    background-color: #f0f0f0; /* Cor de fundo */
-    padding: 20px; /* Espaçamento interno */
+@import "primereact/resources/themes/md-dark-deeppurple/theme.css";
+
+.home-container {
+  background-color: #121212; // Cor de fundo escura do tema
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.home-title {
+  color: #ffffff; // Cor do texto branca do tema
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.filter-buttons {
+  margin-bottom: 20px;
+
+  button {
+    background-color: #7e57c2; // Cor primária do tema
+    color: #ffffff; // Cor do texto branca do tema
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #673ab7; // Cor primária escura ao passar o mouse
+    }
+
+    &.active {
+      background-color: #512da8; // Cor de fundo do botão ativo
+    }
   }
-  
-  .main-home-title {
-    color: #333; /* Cor do título */
-    font-size: 24px; /* Tamanho da fonte do título */
-    margin-bottom: 20px; /* Margem inferior do título */
-  }
-  
-  .filter-buttons {
-    margin-bottom: 20px; /* Espaçamento inferior dos botões de filtro */
-  }
-  
-  .filter-buttons button {
-    background-color: #007bff; /* Cor de fundo dos botões de filtro */
-    color: #fff; /* Cor do texto dos botões de filtro */
-    border: none; /* Sem borda */
-    border-radius: 5px; /* Borda arredondada */
-    padding: 8px 16px; /* Espaçamento interno */
-    margin-right: 10px; /* Margem direita entre os botões */
-    cursor: pointer; /* Cursor ao passar o mouse */
-  }
-  
-  .filter-buttons button:last-child {
-    margin-right: 0; /* Remove a margem direita do último botão */
-  }
-  
-  .tasks-container {
-    display: grid; /* Layout de grid para as tarefas */
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Colunas automáticas com largura mínima de 200px */
-    gap: 20px; /* Espaçamento entre as tarefas */
-  }
-  
+}
+
+.tasks-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+
   .task-card {
-    background-color: #fff; /* Cor de fundo dos cards de tarefa */
-    padding: 15px; /* Espaçamento interno dos cards */
-    border-radius: 8px; /* Borda arredondada */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
-    cursor: pointer; /* Cursor ao passar o mouse */
-    transition: box-shadow 0.3s ease; /* Transição suave da sombra */
+    background-color: #212121; // Cor de fundo dos cards
+    border: 1px solid #424242; // Cor da borda
+    border-radius: 5px;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
   }
-  
-  .task-card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra mais intensa ao passar o mouse */
-  }
-  
+}
