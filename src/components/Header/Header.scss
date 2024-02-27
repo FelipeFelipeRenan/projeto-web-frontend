@@ -1,33 +1,37 @@
 .header-container {
-  background-color: aqua;
+  background-color: #333; /* Cor de fundo escura */
   width: 100%;
   margin: 0;
   padding: 10px;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-  align-items: center; // Centraliza verticalmente os itens
-  height: 70px; // Ajusta a altura conforme necessário
+  align-items: center; /* Centraliza verticalmente os itens */
+  height: 70px; /* Ajusta a altura conforme necessário */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra para efeito de elevação */
 
-  a{
-    
+  .logo {
+    color: #fff; /* Cor do texto */
+    font-size: 24px; /* Tamanho da fonte */
+    font-weight: bold; /* Negrito */
+    text-decoration: none; /* Remove sublinhado do link */
   }
 
   .linksto {
     display: flex;
-    justify-content: flex-start; // Alinha os links à esquerda
+    justify-content: flex-end; /* Alinha os links à direita */
 
-    // Estilos para todos os links dentro de .linksto
+    /* Estilos para todos os links dentro de .linksto */
     a {
       text-decoration: none;
-      margin-left: 30px; // Margem entre os links
-      color: #333; // Cor do texto
-      font-size: 16px; // Tamanho da fonte
-      font-weight: bold; // Negrito
-      transition: color 0.3s ease; // Transição suave da cor
+      margin-left: 30px; /* Margem entre os links */
+      color: #fff; /* Cor do texto */
+      font-size: 16px; /* Tamanho da fonte */
+      font-weight: bold; /* Negrito */
+      transition: color 0.3s ease; /* Transição suave da cor */
 
       &:hover {
-        color: #45a049; // Cor do texto ao passar o mouse
+        color: #45a049; /* Cor do texto ao passar o mouse */
       }
     }
   }
