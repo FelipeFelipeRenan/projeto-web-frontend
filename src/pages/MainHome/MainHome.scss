@@ -39,11 +39,12 @@
 }
 
 .tasks-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 
   .task-card {
+    flex: 1 0 calc(33.333% - 20px); // Definindo a largura dos cards para ocupar 1/3 do container com espaçamento entre eles
     background-color: #212121; // Cor de fundo dos cards
     border: 1px solid #424242; // Cor da borda
     border-radius: 5px;

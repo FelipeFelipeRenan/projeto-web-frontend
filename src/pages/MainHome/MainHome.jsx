@@ -7,7 +7,7 @@ import './MainHome.scss';
 import { useTasks } from '../../contexts/TasksContext';
 
 function MainHome() {
-  const { tasks } = useTasks();
+  const { tasks} = useTasks();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [filter, setFilter] = useState('all');
