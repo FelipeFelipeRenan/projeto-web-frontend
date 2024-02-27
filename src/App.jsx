@@ -6,18 +6,15 @@ import "primereact/resources/themes/md-dark-deeppurple/theme.css";
 
 import React from "react";
 import "./App.css";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/Login/Login";
-import Home from "./pages/Home/Home";
 import MainHome from "./pages/MainHome/MainHome";
+import UserHome from "./pages/Home/UserHome";
 
 const routes = createBrowserRouter([
   {
-    path: "/home",
-    element: <Home/>,
+    path: "/userHome/:id",
+    element: <UserHome/>,
   },
   {
     path: "/login",
@@ -25,14 +22,14 @@ const routes = createBrowserRouter([
   },
   {
     path: "/mainHome",
-    element:<MainHome/>
-  }
+    element: <MainHome />,
+  },
 ]);
 
 function App() {
   return (
     <div className="App">
-      <RouterProvider router={routes}/>
+      <RouterProvider router={routes} />
     </div>
   );
 }

@@ -2,36 +2,15 @@ import React, { useState } from "react";
 import Header from "../../components/Header/Header";
 import Task from "../../components/Task/Task";
 import Modal from "../../components/Modal/Modal";
-import "./Home.scss";
-import { useNavigate } from "react-router-dom";
+import "./UserHome.scss";
+import { useNavigate, useParams } from "react-router-dom"; // Importe o useParams para obter o ID do participante
+import { useTasks } from "../../contexts/TasksContext";
 
-function Home() {
+function UserHome() {
+  const { id } = useParams(); // Obtém o ID do participante da URL
+  const { tasks } = useTasks(id); // Obtém as tarefas associadas ao participante com o ID fornecido
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "Tarefa 1",
-      description: "Descrição da tarefa 1",
-      priority: "Alta",
-      status: "Aberta",
-    },
-    {
-      id: 2,
-      title: "Tarefa 2",
-      description: "Descrição da tarefa 2",
-      priority: "Média",
-      status: "Disponível",
-    },
-    {
-      id: 3,
-      title: "Tarefa 3",
-      description: "Descrição da tarefa 3",
-      priority: "Baixa",
-      status: "Fechada",
-    },
-  ]);
-
   const navigate = useNavigate();
 
   const handleTaskClick = (taskInfo) => {
@@ -77,4 +56,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default UserHome;
