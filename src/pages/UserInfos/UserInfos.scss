@@ -1,0 +1,45 @@
+@import "primereact/resources/themes/md-dark-deeppurple/theme.css";
+
+.user-info-container {
+  background-color: #121212; // Cor de fundo escura do tema
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: #ffffff; // Cor do texto branca do tema
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.participant-info {
+  background-color: #212121; // Cor de fundo dos cards
+  border: 1px solid #424242; // Cor da borda
+  border-radius: 5px;
+  padding: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  p {
+    color: #ffffff; // Cor do texto branca do tema
+    margin-bottom: 10px;
+
+    strong {
+      margin-right: 5px;
+    }
+  }
+}
+
+.not-found {
+  text-align: center;
+  color: #c00;
+  font-size: 18px;
+  margin-top: 20px;
+}

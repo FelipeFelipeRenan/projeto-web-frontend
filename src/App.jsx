@@ -11,6 +11,7 @@ import Login from "./pages/Login/Login";
 import MainHome from "./pages/MainHome/MainHome";
 import UserHome from "./pages/Home/UserHome";
 import Menu from "./components/MenuLateral/Menu";
+import UserInfos from "./pages/UserInfos/UserInfos";
 
 const routes = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const routes = createBrowserRouter([
   {
     path: "/mainHome",
     element: <MainHome />,
+  },
+  {
+    path: "/userInfos/:id",
+    element: <UserInfos/>
   },
 ]);
 
