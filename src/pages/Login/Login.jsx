@@ -20,7 +20,7 @@ function Login() {
       const currentUser = users.find((user) => user.email === email);
       navigate(`/userhome/${currentUser.id}`); // Redireciona para a página userHome do usuário logado
     } else {
-      setError("Credenciais inválidas");
+      setError("Credenciais inválidas");  
     }
   };
 

@@ -1,30 +1,33 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useUser } from '../../contexts/UserContext';
 
 import "./Header.scss";
 
 export default function Header() {
-  const { user } = useUser();
+  const { user, logoutUser } = useUser();
   const location = useLocation();
 
-  useEffect(() => {
-    console.log('Location:', location.pathname);
-    console.log('User:', user);
-  }, [location, user]);
+  const isUserInfosPage = location.pathname.includes('userInfos');
+  const linkText = isUserInfosPage ? 'Tasks' : 'Informações';
+  const linkTo = isUserInfosPage ? `/userhome/${user.id}` : `/userInfos/${user.id}`;
+
+  const handleLogout = () => {
+    logoutUser();
+  };
 
   return (
     <>
       <header className="header-container">
         <nav className="linksto">
           <Link to="/mainHome">Tasks</Link>
-          {user && <Link to={`/userInfos/${user.id}`}>Informações</Link>}
+          <Link to={linkTo}>{linkText}</Link>
         </nav>
         <nav>
           {user ? (
-            <Link to="/login">Sair</Link>
+            <Link to="/login" onClick={handleLogout}>Sair</Link>
           ) : (
-            <button onClick={() => console.log("Implemente a lógica de login aqui")}>Login</button>
+            <Link to="/login">Login</Link>
           )}
         </nav>
       </header>
