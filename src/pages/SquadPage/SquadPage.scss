@@ -1,0 +1,44 @@
+@import "primereact/resources/themes/md-dark-deeppurple/theme.css";
+
+.squad-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .squad-title {
+    color: #ffffff; /* Cor do texto branca */
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .participants-list {
+    list-style: none;
+    padding: 0;
+
+    .participant-item {
+      margin-bottom: 20px;
+
+      .participant-name {
+        font-weight: bold;
+        color: #ffffff; /* Cor do texto branca */
+        margin-bottom: 10px;
+      }
+
+      .task-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 10px;
+
+        .task-item {
+          color: #ffffff; /* Cor do texto branca */
+          margin-left: 20px;
+
+          &:before {
+            content: "•"; /* Adiciona marcador redondo para cada item da lista */
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+}

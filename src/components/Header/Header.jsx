@@ -21,6 +21,7 @@ export default function Header() {
       <header className="header-container">
         <nav className="linksto">
           <Link to="/mainHome">Tasks</Link>
+          {user && <Link to="/squad">Squad</Link>} {/* Adiciona o link para a página de squad se o usuário estiver logado */}
           <Link to={linkTo}>{linkText}</Link>
         </nav>
         <nav>
