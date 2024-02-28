@@ -9,8 +9,8 @@ export default function Header() {
   const location = useLocation();
 
   const isUserInfosPage = location.pathname.includes('userInfos');
-  const linkText = isUserInfosPage ? 'Tasks' : 'Informações';
-  const linkTo = isUserInfosPage ? `/userhome/${user.id}` : `/userInfos/${user.id}`;
+  const linkText = isUserInfosPage ? 'Minhas Tasks' : 'Informações';
+  const linkTo = isUserInfosPage ? (user ? `/userhome/${user.id}` : '/mainHome') : `/userInfos/${user?.id || ''}`;
 
   const handleLogout = () => {
     logoutUser();

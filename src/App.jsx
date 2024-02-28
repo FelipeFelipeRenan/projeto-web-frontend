@@ -12,6 +12,7 @@ import MainHome from "./pages/MainHome/MainHome";
 import UserHome from "./pages/Home/UserHome";
 import Menu from "./components/MenuLateral/Menu";
 import UserInfos from "./pages/UserInfos/UserInfos";
+import SquadPage from "./pages/SquadPage/SquadPage";
 
 const routes = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const routes = createBrowserRouter([
   {
     path: "/userInfos/:id",
     element: <UserInfos/>
+  },
+  {
+    path: "/squad",
+    element: <SquadPage/>
   },
 ]);
 

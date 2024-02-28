@@ -43,7 +43,7 @@
   flex-wrap: wrap;
   gap: 20px;
 
-  .task-card {
+  .p-card {
     flex: 1 0 calc(33.333% - 20px); // Definindo a largura dos cards para ocupar 1/3 do container com espaçamento entre eles
     background-color: #212121; // Cor de fundo dos cards
     border: 1px solid #424242; // Cor da borda
@@ -54,6 +54,18 @@
 
     &:hover {
       transform: translateY(-5px);
+      box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.3); // Adicionando um efeito de sombra ao fazer hover
+    }
+
+    .p-card-title {
+      color: #ffffff; // Cor do título
+      font-size: 18px;
+    }
+
+    .p-card-subtitle {
+      color: #cccccc; // Cor do subtítulo
+      font-size: 14px;
     }
   }
 }
+

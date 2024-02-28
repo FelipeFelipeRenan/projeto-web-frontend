@@ -3,6 +3,7 @@ import Header from '../../components/Header/Header';
 import Task from '../../components/Task/Task';
 import Modal from '../../components/Modal/Modal';
 import { TabMenu } from 'primereact/tabmenu';
+import { Card } from 'primereact/card'; // Importando o componente de cartão do PrimeReact
 import './MainHome.scss';
 import { useTasks } from '../../contexts/TasksContext';
 
@@ -54,8 +55,10 @@ function MainHome() {
             <p>Nenhuma tarefa encontrada.</p>
           ) : (
             filteredTasks.map((task) => (
-              <div className="task-card" key={task.id} onClick={() => handleTaskClick(task)}>
-                <Task taskInfo={task} />
+              <div key={task.id} onClick={() => handleTaskClick(task)}>
+                <Card title={task.title} subTitle={`Status: ${task.status}`} style={{ marginBottom: '1rem', cursor: 'pointer' }}>
+                  <Task taskInfo={task} />
+                </Card>
               </div>
             ))
           )}

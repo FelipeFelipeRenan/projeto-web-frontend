@@ -3,6 +3,7 @@ import Header from '../../components/Header/Header';
 import Task from '../../components/Task/Task';
 import Modal from '../../components/Modal/Modal';
 import { TabMenu } from 'primereact/tabmenu';
+import { Card } from 'primereact/card'; // Importe o componente Card do PrimeReact
 import './UserHome.scss';
 import { useTasks } from '../../contexts/TasksContext';
 import { useUser } from '../../contexts/UserContext';
@@ -70,9 +71,15 @@ function UserHome() {
             <p>Nenhuma tarefa encontrada.</p>
           ) : (
             participantTasks.map((task) => (
-              <div className="task-card" key={task.id} onClick={() => handleTaskClick(task)}>
+              <Card
+                key={task.id}
+                title={task.title}
+                subTitle={`Status: ${task.status}`}
+                className="task-card"
+                onClick={() => handleTaskClick(task)}
+              >
                 <Task taskInfo={task} />
-              </div>
+              </Card>
             ))
           )}
         </div>
@@ -83,4 +90,3 @@ function UserHome() {
 }
 
 export default UserHome;
-    
