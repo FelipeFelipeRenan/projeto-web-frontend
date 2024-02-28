@@ -1,11 +1,13 @@
 import React, { useState, useRef } from "react";
+/*
 import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
 import { Avatar } from "primereact/avatar";
 import { Ripple } from "primereact/Ripple";
 import { StyleClass } from "primereact/StyleClass";
+*/
 
-function Menu() {
+function Menu() {/*
   const [visible, setVisible] = useState(false);
   const btnRef1 = useRef(null);
   const btnRef2 = useRef(null);
@@ -178,6 +180,7 @@ function Menu() {
       </div>
     </div>
   );
+  */
 }
 
 export default Menu;
