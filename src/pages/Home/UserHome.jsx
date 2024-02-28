@@ -3,7 +3,7 @@ import Header from '../../components/Header/Header';
 import Task from '../../components/Task/Task';
 import Modal from '../../components/Modal/Modal';
 import { TabMenu } from 'primereact/tabmenu';
-import { Card } from 'primereact/card'; // Importe o componente Card do PrimeReact
+import { Card } from 'primereact/card';
 import './UserHome.scss';
 import { useTasks } from '../../contexts/TasksContext';
 import { useUser } from '../../contexts/UserContext';
@@ -11,33 +11,38 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 function UserHome() {
   const { tasks } = useTasks();
-  const { users } = useUser();
-  const { id } = useParams();
+  const { users, user: loggedInUser } = useUser(); // Obtenha o usuário atualmente logado
+  const { id: userIdFromParams } = useParams();
   const navigate = useNavigate();
   const [participantTasks, setParticipantTasks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
-  const [activeIndex, setActiveIndex] = useState(0); // Inicializa o activeIndex com 0
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    const foundUser = users.find(u => u.id === parseInt(id, 10));
-    if (foundUser) {
-      // Aplica o filtro às tarefas do participante com base no filtro atual
+    const user = users.find(u => u.id === parseInt(userIdFromParams, 10));
+    if (!user) {
+      // Verifica se o usuário atualmente logado é diferente do usuário na URL
+      if (loggedInUser && loggedInUser.id.toString() !== userIdFromParams) {
+        // Redireciona para a página correta se o usuário logado não corresponder ao usuário na URL
+        navigate(`/userHome/${loggedInUser.id}`);
+      } else {
+        // Caso contrário, redireciona para a página de login
+        navigate("/login");
+      }
+    } else {
       const filteredTasks = tasks.filter(task => {
         if (activeIndex === 0) {
-          // Se "Todas" for selecionado, não aplicar filtro de status
-          return task.assignedTo === parseInt(id, 10);
+          return task.assignedTo === user.id;
         } else {
-          const filter = filterItems[activeIndex].value.toLowerCase(); // Obtém o valor do filtro selecionado
-          return task.assignedTo === parseInt(id, 10) &&
+          const filter = filterItems[activeIndex].value.toLowerCase();
+          return task.assignedTo === user.id &&
                  (filter === 'abertas' ? task.status.toLowerCase() === 'aberta' : task.status.toLowerCase() === 'fechada');
         }
       });
       setParticipantTasks(filteredTasks);
-    } else {
-      navigate("/login");
     }
-  }, [id, tasks, users, navigate, activeIndex]); // Adicione activeIndex como dependência
+  }, [userIdFromParams, tasks, users, navigate, loggedInUser, activeIndex]);
 
   const handleTaskClick = (taskInfo) => {
     setSelectedTask(taskInfo);
@@ -55,14 +60,14 @@ function UserHome() {
   ];
 
   const handleFilterChange = (e) => {
-    setActiveIndex(e.index); // Atualiza o activeIndex com o índice do item selecionado
+    setActiveIndex(e.index);
   };
 
   return (
     <>
       <Header />
       <main className="home-container">
-        <h1 className="home-title">Lista de Tarefas de {users.find(user => user.id === parseInt(id, 10)).name}</h1>
+        <h1 className="home-title">Lista de Tarefas de {loggedInUser && loggedInUser.name}</h1>
         <div className="filter-buttons">
           <TabMenu model={filterItems} activeIndex={activeIndex} onTabChange={handleFilterChange} />
         </div>
