@@ -2,33 +2,30 @@ import { useState } from "react";
 import { Button } from "primereact/button";
 import { Password } from "primereact/password";
 import { InputText } from "primereact/inputtext";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../../contexts/UserContext";
 
 import "./Login.scss";
-import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [error, setError] = useState("");
+  const { users, loginUser } = useUser();
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    // Simples lógica de autenticação (substitua por lógica real)
-    if (username === "usuario" && password === "senha") {
-      // Navega para a página home se o login for bem-sucedido
-
-      navigate("/home");
+    const loggedIn = loginUser(email, password);
+    if (loggedIn) {
+      const currentUser = users.find((user) => user.email === email);
+      navigate(`/userhome/${currentUser.id}`); // Redireciona para a página userHome do usuário logado
     } else {
-      alert("Credenciais inválidas");
+      setError("Credenciais inválidas");
     }
   };
 
   return (
-    <div
-      className={
-        "surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden p-input-filled"
-      }
-    >
+    <div className="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden p-input-filled">
       <div className="flex flex-column align-items-center justify-content-center">
         <div
           style={{
@@ -43,12 +40,6 @@ function Login() {
             style={{ borderRadius: "5%" }}
           >
             <div className="text-center mb-5">
-              <img
-                src="#"
-                alt="Nossa logo"
-                height="50"
-                className="mb-5 w-16rem flex-shrink-0"
-              />
               <div className="text-900 text-3xl font-medium mb-3">
                 NOME DO SISTEMA
               </div>
@@ -70,8 +61,8 @@ function Login() {
                 placeholder="Email"
                 className="w-full md:w-30rem mb-5"
                 style={{ padding: "1rem" }}
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
 
               <label
@@ -90,6 +81,8 @@ function Login() {
                 className="w-full mb-5"
                 inputClassName="w-full p-3 md:w-30rem"
               />
+
+              {error && <div className="text-red-600">{error}</div>}
 
               <div className="flex align-items-center justify-content-between mb-5 gap-5">
                 <a

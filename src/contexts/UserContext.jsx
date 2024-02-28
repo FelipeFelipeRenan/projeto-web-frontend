@@ -1,12 +1,12 @@
-import React, { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext } from 'react';
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [users, setUsers] = useState([
-    { id: 1, name: 'Alice', email: 'alice@example.com', tasks: [] },
-    { id: 2, name: 'Bob', email: 'bob@example.com', tasks: [] },
-    { id: 3, name: 'Charlie', email: 'charlie@example.com', tasks: [] },
+    { id: 1, name: 'Alice', email: 'alice@example.com', password: 'senhaAlice', role: 'Desenvolvedor', tasks: [] },
+    { id: 2, name: 'Bob', email: 'bob@example.com', password: 'senhaBob', role: 'Gerente', tasks: [] },
+    { id: 3, name: 'Charlie', email: 'charlie@example.com', password: 'senhaCharlie', role: 'Analista', tasks: [] },
   ]);
   const [user, setUser] = useState(null);
 
@@ -14,9 +14,14 @@ export const UserProvider = ({ children }) => {
     setUsers(users.map(user => user.id === userId ? { ...user, tasks: [...user.tasks, task] } : user));
   };
 
-  const loginUser = (userId) => {
-    const selectedUser = users.find((user) => user.id === userId);
-    setUser(selectedUser);
+  const loginUser = (email, password) => {
+    const user = users.find((user) => user.email === email && user.password === password);
+    if (user) {
+      setUser(user);
+      return true; // Retorna verdadeiro se o login for bem-sucedido
+    } else {
+      return false; // Retorna falso se as credenciais estiverem incorretas
+    }
   };
 
   const logoutUser = () => {
