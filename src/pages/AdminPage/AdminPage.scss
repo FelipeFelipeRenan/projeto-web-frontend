@@ -1,5 +1,3 @@
-@import "primereact/resources/themes/md-dark-deeppurple/theme.css";
-
 .admin-container {
   background-color: #121212; // Cor de fundo escura do tema
   padding: 20px;
@@ -40,7 +38,7 @@
     flex-wrap: wrap;
     justify-content: space-between; // Alinha os cards nas extremidades da linha
     gap: 20px;
-    margin-top: 20px;
+    margin-top: 30px;
 
     .p-card {
       flex: 1 0 calc(33.33% - 20px); // Definindo a largura dos cards para ocupar 1/3 do container com espaçamento entre eles
@@ -68,5 +66,9 @@
       }
     }
   }
+
+  .participants-container,
+  .squads-container {
+    margin-top: 30px; // Aumenta a margem superior das seções de participantes e squads
+  }
 }
-  

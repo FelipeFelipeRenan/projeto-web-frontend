@@ -32,9 +32,9 @@ export default function AdminPage() {
       <Header />
       <div className="admin-container">
         <h1>Administração</h1>
-        <div>
           <h2>Tasks</h2>
           <Button label="Adicionar Task" className="p-button-raised p-button-rounded p-button-text" onClick={handleAddTask} />
+        <div className="tasks-container">
           <div className="card-container">
             {tasks.map((task, index) => (
               <Card key={index} className="task-card" title={task.description}>
@@ -43,7 +43,7 @@ export default function AdminPage() {
             ))}
           </div>
         </div>
-        <div>
+        <div className="participants-container">
           <h2>Participantes</h2>
           <Button label="Adicionar Participante" className="p-button-raised p-button-rounded p-button-text" onClick={handleAddParticipant} />
           <div className="card-container">
@@ -54,7 +54,7 @@ export default function AdminPage() {
             ))}
           </div>
         </div>
-        <div>
+        <div className="squads-container">
           <h2>Squads</h2>
           <Button label="Adicionar Squad" className="p-button-raised p-button-rounded p-button-text" onClick={handleAddSquad} />
           <div className="card-container">
