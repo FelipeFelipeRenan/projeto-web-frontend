@@ -13,6 +13,8 @@ import UserHome from "./pages/Home/UserHome";
 import Menu from "./components/MenuLateral/Menu";
 import UserInfos from "./pages/UserInfos/UserInfos";
 import SquadPage from "./pages/SquadPage/SquadPage";
+import Participantes from "./pages/Participantes/Participantes";
+import Squad from "./pages/Squad/Squad";
 
 const routes = createBrowserRouter([
   {
@@ -29,11 +31,19 @@ const routes = createBrowserRouter([
   },
   {
     path: "/userInfos/:id",
-    element: <UserInfos/>
+    element: <UserInfos />,
   },
   {
     path: "/squad",
-    element: <SquadPage/>
+    element: <SquadPage />,
+  },
+  {
+    path: "/cadastroparticipantes",
+    element: <Participantes />,
+  },
+  {
+    path: "/cadastrosquad",
+    element: <Squad />,
   },
 ]);
 
