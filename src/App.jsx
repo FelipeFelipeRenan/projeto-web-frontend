@@ -16,6 +16,7 @@ import SquadPage from "./pages/SquadPage/SquadPage";
 import Participantes from "./pages/Participantes/Participantes";
 import Squad from "./pages/Squad/Squad";
 import Task from "./pages/Task/Task";
+import AdminPage from "./pages/AdminPage/AdminPage";
 
 const routes = createBrowserRouter([
   {
@@ -50,6 +51,7 @@ const routes = createBrowserRouter([
     path: "/cadastrotask",
     element: <Task />,
   },
+  { path: "/admin", element: <AdminPage /> },
 ]);
 
 function App() {

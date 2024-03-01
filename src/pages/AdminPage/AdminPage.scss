@@ -1,0 +1,72 @@
+@import "primereact/resources/themes/md-dark-deeppurple/theme.css";
+
+.admin-container {
+  background-color: #121212; // Cor de fundo escura do tema
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h1 {
+    color: #ffffff; // Cor do texto branca do tema
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    color: #ffffff; // Cor do texto branca do tema
+    font-size: 20px;
+    margin-bottom: 15px; // Aumenta o espaçamento abaixo dos títulos das seções
+  }
+
+  .p-button-text {
+    background-color: #7e57c2; // Cor primária do tema
+    color: #ffffff; // Cor do texto branca do tema
+    border: none;
+    padding: 8px 16px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #673ab7; // Cor primária escura ao passar o mouse
+    }
+  }
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; // Alinha os cards nas extremidades da linha
+    gap: 20px;
+    margin-top: 20px;
+
+    .p-card {
+      flex: 1 0 calc(33.33% - 20px); // Definindo a largura dos cards para ocupar 1/3 do container com espaçamento entre eles
+      background-color: #212121; // Cor de fundo dos cards
+      border: 1px solid #424242; // Cor da borda
+      border-radius: 8px; // Borda arredondada
+      padding: 20px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease; // Adicionando transições suaves
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.3); // Adicionando um efeito de sombra ao fazer hover
+      }
+
+      .p-card-title {
+        color: #ffffff; // Cor do título
+        font-size: 18px;
+        margin-bottom: 10px; // Adiciona um espaçamento abaixo do título
+      }
+
+      .p-card-subtitle {
+        color: #cccccc; // Cor do subtítulo
+        font-size: 14px;
+      }
+    }
+  }
+}
+  
