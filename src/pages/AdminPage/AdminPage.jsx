@@ -19,6 +19,7 @@ export default function AdminPage() {
   const [taskDialog, setTaskDialog] = useState(false);
   const [participanteDialog, setParticipanteDialog] = useState(false);
   const [squadDialog, setSquadDialog] = useState(false);
+  const { deleteTask } = useTasks();
   const [value, setValue] = useState("");
   const [selectedPrioridade, setSelectedPrioridade] = useState(null);
   const [selectedCargo, setSelectedCargo] = useState(null);
@@ -101,6 +102,9 @@ export default function AdminPage() {
       />
     </>
   );
+  const handleDeleteTask = (taskId) => {
+    deleteTask(taskId);
+  };
   return (
     <>
       <Header />
@@ -125,7 +129,7 @@ export default function AdminPage() {
                       style={{
                         color: "red",
                       }}
-                      // onClick={() => handleDeleteTask(index)}
+                      onClick={() => handleDeleteTask(task.id)}
                     />
                     <Button
                       icon="pi pi-pencil"
