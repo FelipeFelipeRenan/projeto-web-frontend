@@ -72,3 +72,24 @@
     margin-top: 30px; // Aumenta a margem superior das seções de participantes e squads
   }
 }
+.form-group {
+  margin-top: 1em; 
+}
+.card-actions {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+.card-buttons {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: -50px;
+  right: -20px;
+}
+
+.card-buttons button{
+  background: none;
+border: none;
+}
+
