@@ -19,9 +19,17 @@ export default function AdminPage() {
   const [taskDialog, setTaskDialog] = useState(false);
   const [participanteDialog, setParticipanteDialog] = useState(false);
   const [squadDialog, setSquadDialog] = useState(false);
-  const [selectedPrioridade, setSelectedPrioridade] = useState(null);
   const [value, setValue] = useState("");
+  const [selectedPrioridade, setSelectedPrioridade] = useState(null);
+  const [selectedCargo, setSelectedCargo] = useState(null);
 
+  const cargos = [
+    { name: "Cargo 1", code: "0" },
+    { name: "Cargo 2", code: "1" },
+    { name: "Cargo 3", code: "2" },
+    { name: "Cargo 4", code: "3" },
+    { name: "Cargo 5", code: "4" },
+  ];
   const prioridades = [
     { name: "Alta", code: "0" },
     { name: "Média", code: "1" },
@@ -35,9 +43,9 @@ export default function AdminPage() {
   };
 
   const handleAddParticipant = () => {
+    setParticipanteDialog(false); // Add na ultima linha
     const newParticipant = { name: "Novo Participante teste", tasks: [] };
     addUser(newParticipant);
-    setParticipanteDialog(false);
   };
 
   const handleAddSquad = () => {
@@ -58,6 +66,38 @@ export default function AdminPage() {
         icon="pi pi-check"
         className="p-button-text"
         onClick={handleAddTask}
+      />
+    </>
+  );
+  const actionParticipanteDialogFooter = (
+    <>
+      <Button
+        label="Cancelar"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={() => setParticipanteDialog(false)}
+      />
+      <Button
+        label="Cadastrar"
+        icon="pi pi-check"
+        className="p-button-text"
+        onClick={handleAddParticipant}
+      />
+    </>
+  );
+  const actionSquadDialogFooter = (
+    <>
+      <Button
+        label="Cancelar"
+        icon="pi pi-times"
+        className="p-button-text"
+        onClick={() => setSquadDialog(false)}
+      />
+      <Button
+        label="Cadastrar"
+        icon="pi pi-check"
+        className="p-button-text"
+        onClick={handleAddSquad}
       />
     </>
   );
@@ -86,7 +126,7 @@ export default function AdminPage() {
           <Button
             label="Adicionar Participante"
             className="p-button-raised p-button-rounded p-button-text"
-            onClick={handleAddParticipant}
+            onClick={() => setParticipanteDialog(true)}
           />
           <div className="card-container">
             {users.map((user, index) => (
@@ -170,59 +210,52 @@ export default function AdminPage() {
         </Dialog>
         <Dialog
           header="Cadastro/Detalhe Participante"
-          visible={taskDialog}
+          visible={participanteDialog}
           style={{ width: "50%" }}
           modal
-          footer={actionTaskDialogFooter}
-          onHide={() => setTaskDialog(false)}
+          footer={actionParticipanteDialogFooter}
+          onHide={() => setParticipanteDialog(false)}
         >
-          <div className="form-group">
-            <label
-              htmlFor="titulo"
-              className="block text-900 text-xl font-medium mb-2"
-            >
-              Titulo
-            </label>
-            <InputText
-              id="titulo"
-              type="text"
-              placeholder="Nome"
-              className="w-full "
-              style={{ padding: "1rem" }}
-            />
-          </div>
-          <div className="form-group">
-            <label
-              htmlFor="prioridade"
-              className="block text-900 font-medium text-xl mb-2"
-            >
-              Prioridade
-            </label>
-            <Dropdown
-              value={selectedPrioridade}
-              onChange={(e) => setSelectedPrioridade(e.value)}
-              options={prioridades}
-              optionLabel="name"
-              placeholder="Prioridade"
-              className="w-full"
-            />
-          </div>
-          <div className="form-group">
-            <label
-              htmlFor="detalhes"
-              className="block text-900 font-medium text-xl mb-2"
-            >
-              Descrição
-            </label>
-            <InputTextarea
-              autoResize
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              rows={5}
-              cols={30}
-              className="w-full"
-            />
-          </div>
+          <label
+            htmlFor="nome1"
+            className="block text-900 text-xl font-medium mb-2"
+          >
+            Nome
+          </label>
+          <InputText
+            id="nome1"
+            type="text"
+            placeholder="Nome"
+            className="w-full md:w-30rem mb-5"
+            style={{ padding: "1rem" }}
+          />
+          <label
+            htmlFor="email1"
+            className="block text-900 text-xl font-medium mb-2"
+          >
+            E-mail
+          </label>
+          <InputText
+            id="email1"
+            type="text"
+            placeholder="Email"
+            className="w-full md:w-30rem mb-5"
+            style={{ padding: "1rem" }}
+          />
+          <label
+            htmlFor="cargo"
+            className="block text-900 font-medium text-xl mb-2"
+          >
+            Cargo
+          </label>
+          <Dropdown
+            value={selectedCargo}
+            onChange={(e) => setSelectedCargo(e.value)}
+            options={cargos}
+            optionLabel="name"
+            placeholder="Selecione o cargo"
+            className="w-full"
+          />
         </Dialog>
       </div>
     </>
