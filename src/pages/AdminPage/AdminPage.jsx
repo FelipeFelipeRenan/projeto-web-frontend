@@ -117,6 +117,26 @@ export default function AdminPage() {
             {tasks.map((task, index) => (
               <Card key={index} className="task-card" title={task.description}>
                 <p>Status: {task.status}</p>
+                <div className="card-actions">
+                  <div className="card-buttons">
+                    <Button
+                      icon="pi pi-trash"
+                      className="p-button-rounded p-button custom-button"
+                      style={{
+                        color: "red",
+                      }}
+                      // onClick={() => handleDeleteTask(index)}
+                    />
+                    <Button
+                      icon="pi pi-pencil"
+                      className="p-button-rounded p-button custom-button"
+                      style={{
+                        color: "blue",
+                      }}
+                      // onClick={() => handleEditTask(index)}
+                    />
+                  </div>
+                </div>
               </Card>
             ))}
           </div>
@@ -132,6 +152,26 @@ export default function AdminPage() {
             {users.map((user, index) => (
               <Card key={index} className="participant-card" title={user.name}>
                 <p>Total de tasks: {user.tasks.length}</p>
+                <div className="card-actions">
+                  <div className="card-buttons">
+                    <Button
+                      icon="pi pi-trash"
+                      className="p-button-rounded p-button custom-button"
+                      style={{
+                        color: "red",
+                      }}
+                      // onClick={() => handleDeleteTask(index)}
+                    />
+                    <Button
+                      icon="pi pi-pencil"
+                      className="p-button-rounded p-button custom-button"
+                      style={{
+                        color: "blue",
+                      }}
+                      // onClick={() => handleEditTask(index)}
+                    />
+                  </div>
+                </div>
               </Card>
             ))}
           </div>
@@ -147,6 +187,26 @@ export default function AdminPage() {
             {squads.map((squad, index) => (
               <Card key={index} className="squad-card" title={squad.name}>
                 <p>Total de participantes: {squad.participants.length}</p>
+                <div className="card-actions">
+                  <div className="card-buttons">
+                    <Button
+                      icon="pi pi-trash"
+                      className="p-button-rounded p-button custom-button"
+                      style={{
+                        color: "red",
+                      }}
+                      // onClick={() => handleDeleteTask(index)}
+                    />
+                    <Button
+                      icon="pi pi-pencil"
+                      className="p-button-rounded p-button custom-button"
+                      style={{
+                        color: "blue",
+                      }}
+                      // onClick={() => handleEditTask(index)}
+                    />
+                  </div>
+                </div>
               </Card>
             ))}
           </div>
