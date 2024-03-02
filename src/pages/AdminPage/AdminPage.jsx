@@ -49,9 +49,9 @@ export default function AdminPage() {
   };
 
   const handleAddSquad = () => {
+    setSquadDialog(false); // Add na ultima linha
     const newSquad = { name: "Nova Squad teste", participants: [], tasks: [] };
     addSquad(newSquad);
-    setSquadDialog(false);
   };
   const actionTaskDialogFooter = (
     <>
@@ -141,7 +141,7 @@ export default function AdminPage() {
           <Button
             label="Adicionar Squad"
             className="p-button-raised p-button-rounded p-button-text"
-            onClick={handleAddSquad}
+            onClick={() => setSquadDialog(true)}
           />
           <div className="card-container">
             {squads.map((squad, index) => (
@@ -256,6 +256,58 @@ export default function AdminPage() {
             placeholder="Selecione o cargo"
             className="w-full"
           />
+        </Dialog>
+        <Dialog
+          header="Cadastro/Detalhe Squad"
+          visible={squadDialog}
+          style={{ width: "50%" }}
+          modal
+          footer={actionSquadDialogFooter}
+          onHide={() => setSquadDialog(false)}
+        >
+          <label
+            htmlFor="titulo"
+            className="block text-900 text-xl font-medium mb-2"
+          >
+            Titulo
+          </label>
+          <InputText
+            id="titulo"
+            type="text"
+            placeholder="Nome"
+            className="w-full md:w-30rem mb-5"
+            style={{ padding: "1rem" }}
+          />
+          <label
+            htmlFor="prioridade"
+            className="block text-900 font-medium text-xl mb-2"
+          >
+            Prioridade
+          </label>
+          <Dropdown
+            value={selectedPrioridade}
+            onChange={(e) => setSelectedPrioridade(e.value)}
+            options={prioridades}
+            optionLabel="name"
+            placeholder="Prioridade"
+            className="w-full"
+          />
+          <div className="w-full" style={{ marginTop: "5%" }}>
+            <label
+              htmlFor="detalhes"
+              className="block text-900 font-medium text-xl mb-2"
+            >
+              Detalhes
+            </label>
+            <InputTextarea
+              autoResize
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              rows={5}
+              cols={30}
+              className="w-full"
+            />
+          </div>
         </Dialog>
       </div>
     </>
