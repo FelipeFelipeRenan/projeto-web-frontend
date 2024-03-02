@@ -35,8 +35,9 @@ export const UserProvider = ({ children }) => {
   };
 
   const deleteUser = (userId) => {
-    setUsers(prevUsers => prevUsers.filter(user => user.id !== userId));
+    setUsers(users.filter(user => user.id !== userId));
   };
+  
   
   return (
     <UserContext.Provider value={{ users, assignTaskToUser, loginUser, logoutUser, addUser, deleteUser, user }}>

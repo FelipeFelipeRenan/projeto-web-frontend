@@ -24,6 +24,7 @@ export default function AdminPage() {
   const [participantRole, setParticipantRole] = useState("");
   const [squadName, setSquadName] = useState("");
   const [selectedParticipants, setSelectedParticipants] = useState([]);
+  const [selectedPriority, setSelectedPriority] = useState(null); // Inicializando selectedPriority como null
 
   const priorities = [
     { name: "Alta", code: "0" },
@@ -40,14 +41,21 @@ export default function AdminPage() {
   ];
 
   const handleAddTask = () => {
-    const newTask = { description: taskDescription, status: "Pendente" };
+    const newTask = {
+      id: tasks.length + 1, // Use o comprimento atual da matriz + 1 como ID único
+      description: taskDescription,
+      priority: selectedPriority,
+      status: "Pendente",
+    };
     addTask(newTask);
     setTaskDialog(false);
     setTaskDescription("");
+    setSelectedPriority(null);
   };
-
+  
   const handleAddParticipant = () => {
     const newParticipant = {
+      id: users.length + 1, // Use o comprimento atual da matriz + 1 como ID único
       name: participantName,
       email: participantEmail,
       role: participantRole,
@@ -58,9 +66,10 @@ export default function AdminPage() {
     setParticipantEmail("");
     setParticipantRole("");
   };
-
+  
   const handleAddSquad = () => {
     const newSquad = {
+      id: squads.length + 1, // Use o comprimento atual da matriz + 1 como ID único
       name: squadName,
       participants: selectedParticipants,
       tasks: [],
@@ -70,13 +79,13 @@ export default function AdminPage() {
     setSquadName("");
     setSelectedParticipants([]);
   };
-
-  const handleDeleteTask = (index) => {
-    deleteTask(tasks[index].id);
+  
+  const handleDeleteTask = (taskId) => {
+    deleteTask(taskId);
   };
 
-  const handleDeleteParticipant = (index) => {
-    deleteUser(users[index].id);
+  const handleDeleteParticipant = (participantId) => {
+    deleteUser(participantId);
   };
 
   const handleDeleteSquad = (index) => {
@@ -110,7 +119,7 @@ export default function AdminPage() {
                       icon="pi pi-trash"
                       className="p-button-rounded p-button custom-button"
                       style={{ color: "red" }}
-                      onClick={() => handleDeleteTask(index)}
+                      onClick={() => handleDeleteTask(task.id)}
                     />
                   </div>
                 </div>
@@ -142,7 +151,7 @@ export default function AdminPage() {
                       icon="pi pi-trash"
                       className="p-button-rounded p-button custom-button"
                       style={{ color: "red" }}
-                      onClick={() => handleDeleteParticipant(index)}
+                      onClick={() => handleDeleteParticipant(user.id)}
                     />
                   </div>
                 </div>
@@ -194,6 +203,14 @@ export default function AdminPage() {
             htmlFor="titulo"
             className="block text-900 text-xl font-medium mb-2"
           >
+            Título
+          </label>
+        </div>
+        <div className="form-group">
+          <label
+            htmlFor="descricao"
+            className="block text-900 text-xl font-medium mb-2"
+          >
             Descrição
           </label>
           <InputText
@@ -203,6 +220,26 @@ export default function AdminPage() {
             className="w-full"
             value={taskDescription}
             onChange={(e) => setTaskDescription(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label
+            htmlFor="prioridade"
+            className="block text-900 text-xl font-medium mb-2"
+          >
+            Prioridade
+          </label>
+          <Dropdown
+            id="prioridade"
+            value={selectedPriority}
+            options={priorities.map((option) => ({
+              label: option.name,
+              value: option.code,
+            }))}
+            onChange={(e) => setSelectedPriority(e.value)}
+            optionLabel="label"
+            placeholder="Selecione a Prioridade"
+            className="w-full"
           />
         </div>
         <Button
