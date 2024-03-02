@@ -125,7 +125,6 @@ export default function AdminPage() {
                       style={{
                         color: "red",
                       }}
-                      tooltip={"Excluir"}
                       // onClick={() => handleDeleteTask(index)}
                     />
                     <Button
@@ -134,7 +133,6 @@ export default function AdminPage() {
                       style={{
                         color: "blue",
                       }}
-                      tooltip={"Editar"}
                       // onClick={() => handleEditTask(index)}
                     />
                   </div>
@@ -162,7 +160,6 @@ export default function AdminPage() {
                       style={{
                         color: "red",
                       }}
-                      tooltip={"Excluir"}
                       // onClick={() => handleDeleteTask(index)}
                     />
                     <Button
@@ -171,7 +168,6 @@ export default function AdminPage() {
                       style={{
                         color: "blue",
                       }}
-                      tooltip={"Editar"}
                       // onClick={() => handleEditTask(index)}
                     />
                   </div>
@@ -199,7 +195,6 @@ export default function AdminPage() {
                       style={{
                         color: "red",
                       }}
-                      tooltip={"Excluir"}
                       // onClick={() => handleDeleteTask(index)}
                     />
                     <Button
@@ -208,7 +203,6 @@ export default function AdminPage() {
                       style={{
                         color: "blue",
                       }}
-                      tooltip={"Editar"}
                       // onClick={() => handleEditTask(index)}
                     />
                   </div>
