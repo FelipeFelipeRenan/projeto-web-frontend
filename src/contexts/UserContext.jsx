@@ -1,3 +1,5 @@
+// No contexto de usuários (UserContext.js)
+
 import React, { createContext, useState, useContext } from 'react';
 
 const UserContext = createContext();
@@ -28,8 +30,16 @@ export const UserProvider = ({ children }) => {
     setUser(null);
   };
 
+  const addUser = (newUser) => {
+    setUsers([...users, newUser]);
+  };
+
+  const deleteUser = (userId) => {
+    setUsers(prevUsers => prevUsers.filter(user => user.id !== userId));
+  };
+  
   return (
-    <UserContext.Provider value={{ users, assignTaskToUser, loginUser, logoutUser, user }}>
+    <UserContext.Provider value={{ users, assignTaskToUser, loginUser, logoutUser, addUser, deleteUser, user }}>
       {children}
     </UserContext.Provider>
   );
