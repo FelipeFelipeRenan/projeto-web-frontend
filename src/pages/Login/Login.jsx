@@ -16,6 +16,11 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
+    if (!email || !password) {
+      setError("Preencha todos os campos.");
+      return;
+    }
+
     const loggedIn = loginUser(email, password);
     if (loggedIn) {
       const currentUser = users.find((user) => user.email === email);
@@ -83,15 +88,13 @@ function Login() {
                 id="email1"
                 type="text"
                 placeholder="Email"
-                className={`w-full md:w-30rem mb-2 ${
-                  emailError ? "invalid-input" : ""
-                }`} // Adiciona a classe 'invalid-input' se houver erro de email
+                className={`w-full md:w-30rem mb-2 ${emailError ? 'invalid-input' : ''}`} // Adiciona a classe 'invalid-input' se houver erro de email
                 style={{ padding: "1rem" }}
                 value={email}
                 onChange={handleEmailChange} // Alterado para chamar a função de validação ao alterar o email
               />
-              {emailError && <div className="text-red-600">Email inválido</div>}{" "}
-              {/* Exibe a mensagem de erro abaixo do campo de email se houver erro */}
+              {emailError && <div className="text-red-600">Email inválido</div>} {/* Exibe a mensagem de erro abaixo do campo de email se houver erro */}
+
               <label
                 htmlFor="password1"
                 className="block text-900 font-medium text-xl mb-2"
@@ -108,7 +111,9 @@ function Login() {
                 className="w-full mb-5"
                 inputClassName="w-full p-3 md:w-30rem"
               />
+
               {error && <div className="text-red-600">{error}</div>}
+
               <div className="flex align-items-center justify-content-between mb-5 gap-5">
                 <a
                   className="font-medium no-underline ml-2 text-right cursor-pointer"
