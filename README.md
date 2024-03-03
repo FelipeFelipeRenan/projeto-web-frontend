@@ -50,6 +50,10 @@ Para testar a aplicação, siga os seguintes passos:
 - Email: alice@example.com, Senha: senhaAlice
 - Email: bob@example.com, Senha: senhaBob
 - Email: charlie@example.com, Senha: senhaCharlie
+- Email: admin@example.com, Senha: senhaAdmin
+
+  Os três primeiros usuarios caso fizerem login com sucesso, serão redirecionados para a sua respectiva página principal,
+  o último, será redirecionado para a tela de administração do sistema.
 
 A aplicação possui as seguintes rotas disponíveis:
 
