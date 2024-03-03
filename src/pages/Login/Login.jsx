@@ -18,12 +18,15 @@ function Login() {
     const loggedIn = loginUser(email, password);
     if (loggedIn) {
       const currentUser = users.find((user) => user.email === email);
-      navigate(`/userhome/${currentUser.id}`); // Redireciona para a página userHome do usuário logado
+      if (email === "admin@example.com" && password === "senhaAdmin") {
+        navigate("/admin"); // Redireciona para a página de administração
+      } else {
+        navigate(`/userhome/${currentUser.id}`); // Redireciona para a página userHome do usuário logado
+      }
     } else {
       setError("Credenciais inválidas");
     }
   };
-
   return (
     <div className="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden p-input-filled">
       <div className="flex flex-column align-items-center justify-content-center">
