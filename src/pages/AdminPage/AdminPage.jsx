@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
-import { Dialog } from "primereact/dialog";
-import { InputText } from "primereact/inputtext";
-import { Dropdown } from "primereact/dropdown";
-import { MultiSelect } from "primereact/multiselect"; // Importe o componente MultiSelect
 import { useTasks } from "../../contexts/TasksContext";
 import { useUser } from "../../contexts/UserContext";
 import { useSquad } from "../../contexts/SquadContext";
 import "./AdminPage.scss";
 import Header from "../../components/Header/Header";
+import TaskModal from "../../components/ModalTask/ModalTask";
+import ParticipantModal from "../../components/ModalParticipante/ModalParticipante";
+import SquadModal from "../../components/ModalSquad/ModalSquad";
 
 export default function AdminPage() {
   const { tasks, addTask, deleteTask } = useTasks();
@@ -18,67 +17,6 @@ export default function AdminPage() {
   const [taskDialog, setTaskDialog] = useState(false);
   const [participantDialog, setParticipantDialog] = useState(false);
   const [squadDialog, setSquadDialog] = useState(false);
-  const [taskDescription, setTaskDescription] = useState("");
-  const [participantName, setParticipantName] = useState("");
-  const [participantEmail, setParticipantEmail] = useState("");
-  const [participantRole, setParticipantRole] = useState("");
-  const [squadName, setSquadName] = useState("");
-  const [selectedParticipants, setSelectedParticipants] = useState([]);
-  const [selectedPriority, setSelectedPriority] = useState(null); // Inicializando selectedPriority como null
-
-  const priorities = [
-    { name: "Alta", code: "0" },
-    { name: "Média", code: "1" },
-    { name: "Baixa", code: "2" },
-  ];
-
-  const roles = [
-    { name: "Cargo 1", code: "0" },
-    { name: "Cargo 2", code: "1" },
-    { name: "Cargo 3", code: "2" },
-    { name: "Cargo 4", code: "3" },
-    { name: "Cargo 5", code: "4" },
-  ];
-
-  const handleAddTask = () => {
-    const newTask = {
-      id: tasks.length + 1, // Use o comprimento atual da matriz + 1 como ID único
-      description: taskDescription,
-      priority: selectedPriority,
-      status: "Pendente",
-    };
-    addTask(newTask);
-    setTaskDialog(false);
-    setTaskDescription("");
-    setSelectedPriority(null);
-  };
-
-  const handleAddParticipant = () => {
-    const newParticipant = {
-      id: users.length + 1, // Use o comprimento atual da matriz + 1 como ID único
-      name: participantName,
-      email: participantEmail,
-      role: participantRole,
-    };
-    addUser(newParticipant);
-    setParticipantDialog(false);
-    setParticipantName("");
-    setParticipantEmail("");
-    setParticipantRole("");
-  };
-
-  const handleAddSquad = () => {
-    const newSquad = {
-      id: squads.length + 1, // Use o comprimento atual da matriz + 1 como ID único
-      name: squadName,
-      participants: selectedParticipants,
-      tasks: [],
-    };
-    addSquad(newSquad);
-    setSquadDialog(false);
-    setSquadName("");
-    setSelectedParticipants([]);
-  };
 
   const handleDeleteTask = (taskId) => {
     deleteTask(taskId);
@@ -191,168 +129,23 @@ export default function AdminPage() {
           </div>
         </div>
       </div>
-      <Dialog
-        header="Cadastro/Detalhe Task"
+      <TaskModal
         visible={taskDialog}
-        style={{ width: "50%" }}
-        modal
         onHide={() => setTaskDialog(false)}
-      >
-        <div className="form-group">
-          <label
-            htmlFor="titulo"
-            className="block text-900 text-xl font-medium mb-2"
-          >
-            Título
-          </label>
-        </div>
-        <div className="form-group">
-          <label
-            htmlFor="descricao"
-            className="block text-900 text-xl font-medium mb-2"
-          >
-            Descrição
-          </label>
-          <InputText
-            id="descricao"
-            type="text"
-            placeholder="Descrição da Tarefa"
-            className="w-full"
-            value={taskDescription}
-            onChange={(e) => setTaskDescription(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label
-            htmlFor="prioridade"
-            className="block text-900 text-xl font-medium mb-2"
-          >
-            Prioridade
-          </label>
-          <Dropdown
-            id="prioridade"
-            value={selectedPriority}
-            options={priorities.map((option) => ({
-              label: option.name,
-              value: option.code,
-            }))}
-            onChange={(e) => setSelectedPriority(e.value)}
-            optionLabel="label"
-            placeholder="Selecione a Prioridade"
-            className="w-full"
-          />
-        </div>
-        <Button
-          label="Adicionar Task"
-          className="p-button-raised p-button-rounded p-button-text"
-          onClick={handleAddTask}
-        />
-      </Dialog>
-
-      <Dialog
-        header="Cadastro Participante"
+        addTask={addTask}
+      />
+      <ParticipantModal
         visible={participantDialog}
-        style={{ width: "50%" }}
-        modal
         onHide={() => setParticipantDialog(false)}
-      >
-        <div className="form-group">
-          <label
-            htmlFor="nome"
-            className="block text-900 text-xl font-medium mb-2"
-          >
-            Nome
-          </label>
-          <InputText
-            id="nome"
-            type="text"
-            placeholder="Nome"
-            className="w-full"
-            value={participantName}
-            onChange={(e) => setParticipantName(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label
-            htmlFor="email"
-            className="block text-900 text-xl font-medium mb-2"
-          >
-            E-mail
-          </label>
-          <InputText
-            id="email"
-            type="text"
-            placeholder="Email"
-            className="w-full"
-            value={participantEmail}
-            onChange={(e) => setParticipantEmail(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label
-            htmlFor="role"
-            className="block text-900 text-xl font-medium mb-2"
-          >
-            Cargo
-          </label>
-          <Dropdown
-            id="role"
-            value={participantRole}
-            options={roles.map((option) => ({
-              label: option.name,
-              value: option.code,
-            }))}
-            onChange={(e) => setParticipantRole(e.value)}
-            optionLabel="label"
-            placeholder="Selecione o Cargo"
-            className="w-full"
-          />
-        </div>
-        <Button
-          label="Adicionar Participante"
-          className="p-button-raised p-button-rounded p-button-text"
-          onClick={handleAddParticipant}
-        />
-      </Dialog>
+        addUser={addUser}
+      />
 
-      <Dialog
-        header="Cadastro Squad"
+      <SquadModal
         visible={squadDialog}
-        style={{ width: "50%" }}
-        modal
         onHide={() => setSquadDialog(false)}
-      >
-        <div className="form-group">
-          <label
-            htmlFor="squadNome"
-            className="block text-900 text-xl font-medium mb-2"
-          >
-            Nome da Squad
-          </label>
-          <InputText
-            id="squadNome"
-            type="text"
-            placeholder="Nome da Squad"
-            className="w-full"
-            value={squadName}
-            onChange={(e) => setSquadName(e.target.value)}
-          />
-        </div>
-        {/* Adicione aqui a interface para selecionar os participantes */}
-        <MultiSelect
-          value={selectedParticipants}
-          options={users.map((user) => ({ label: user.name, value: user.id }))}
-          onChange={(e) => setSelectedParticipants(e.value)}
-          optionLabel="label"
-          placeholder="Selecione os Participantes"
-          className="w-full"
-        />
-        <Button
-          label="Adicionar Squad"
-          className="p-button-raised p-button-rounded p-button-text"
-          onClick={handleAddSquad}
-        />
-      </Dialog>
+        addSquad={addSquad}
+        users={users}
+      />
     </>
   );
 }
