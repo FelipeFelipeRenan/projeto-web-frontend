@@ -1,5 +1,3 @@
-// TaskModal.js
-
 import React, { useState } from "react";
 import { Dialog } from "primereact/dialog";
 import { InputText } from "primereact/inputtext";

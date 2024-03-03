@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import Header from '../../components/Header/Header';
-import Task from '../../components/Task/Task';
-import Modal from '../../components/Modal/Modal';
-import { TabMenu } from 'primereact/tabmenu';
-import { Card } from 'primereact/card';
-import './UserHome.scss';
-import { useTasks } from '../../contexts/TasksContext';
-import { useUser } from '../../contexts/UserContext';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import Header from "../../components/Header/Header";
+import Task from "../../components/Task/Task";
+import Modal from "../../components/Modal/Modal";
+import { TabMenu } from "primereact/tabmenu";
+import { Card } from "primereact/card";
+import "./UserHome.scss";
+import { useTasks } from "../../contexts/TasksContext";
+import { useUser } from "../../contexts/UserContext";
+import { useNavigate, useParams } from "react-router-dom";
 
 function UserHome() {
   const { tasks } = useTasks();
-  const { users, user: loggedInUser } = useUser(); // Obtenha o usuário atualmente logado
+  const { users, user: loggedInUser } = useUser();
   const { id: userIdFromParams } = useParams();
   const navigate = useNavigate();
   const [participantTasks, setParticipantTasks] = useState([]);
@@ -20,24 +20,25 @@ function UserHome() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    const user = users.find(u => u.id === parseInt(userIdFromParams, 10));
+    const user = users.find((u) => u.id === parseInt(userIdFromParams, 10));
     if (!user) {
-      // Verifica se o usuário atualmente logado é diferente do usuário na URL
       if (loggedInUser && loggedInUser.id.toString() !== userIdFromParams) {
-        // Redireciona para a página correta se o usuário logado não corresponder ao usuário na URL
         navigate(`/userHome/${loggedInUser.id}`);
       } else {
-        // Caso contrário, redireciona para a página de login
         navigate("/login");
       }
     } else {
-      const filteredTasks = tasks.filter(task => {
+      const filteredTasks = tasks.filter((task) => {
         if (activeIndex === 0) {
           return task.assignedTo === user.id;
         } else {
           const filter = filterItems[activeIndex].value.toLowerCase();
-          return task.assignedTo === user.id &&
-                 (filter === 'abertas' ? task.status.toLowerCase() === 'aberta' : task.status.toLowerCase() === 'fechada');
+          return (
+            task.assignedTo === user.id &&
+            (filter === "abertas"
+              ? task.status.toLowerCase() === "aberta"
+              : task.status.toLowerCase() === "fechada")
+          );
         }
       });
       setParticipantTasks(filteredTasks);
@@ -54,9 +55,9 @@ function UserHome() {
   };
 
   const filterItems = [
-    { label: 'Todas', value: 'all' },
-    { label: 'Abertas', value: 'abertas' },
-    { label: 'Fechadas', value: 'fechadas' },
+    { label: "Todas", value: "all" },
+    { label: "Abertas", value: "abertas" },
+    { label: "Fechadas", value: "fechadas" },
   ];
 
   const handleFilterChange = (e) => {
@@ -67,9 +68,15 @@ function UserHome() {
     <>
       <Header />
       <main className="home-container">
-        <h1 className="home-title">Lista de Tarefas de {loggedInUser && loggedInUser.name}</h1>
+        <h1 className="home-title">
+          Lista de Tarefas de {loggedInUser && loggedInUser.name}
+        </h1>
         <div className="filter-buttons">
-          <TabMenu model={filterItems} activeIndex={activeIndex} onTabChange={handleFilterChange} />
+          <TabMenu
+            model={filterItems}
+            activeIndex={activeIndex}
+            onTabChange={handleFilterChange}
+          />
         </div>
         <div className="tasks-container">
           {participantTasks.length === 0 ? (
