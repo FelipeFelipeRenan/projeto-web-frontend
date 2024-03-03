@@ -11,6 +11,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [emailError, setEmailError] = useState(false); // State para controlar a exibição do erro de email
   const { users, loginUser } = useUser();
   const navigate = useNavigate();
 
@@ -27,6 +28,26 @@ function Login() {
       setError("Credenciais inválidas");
     }
   };
+
+  const handleEmailChange = (e) => {
+    const emailValue = e.target.value;
+    // Adicione aqui sua lógica de validação de email
+    // Exemplo: Verificar se o email possui um formato válido
+    if (!isValidEmail(emailValue)) {
+      setEmailError(true);
+    } else {
+      setEmailError(false);
+    }
+    setEmail(emailValue);
+  };
+
+  const isValidEmail = (email) => {
+    // Exemplo simples de validação de email
+    // Esta validação pode ser substituída por uma mais robusta conforme sua necessidade
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   return (
     <div className="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden p-input-filled">
       <div className="flex flex-column align-items-center justify-content-center">
@@ -62,12 +83,15 @@ function Login() {
                 id="email1"
                 type="text"
                 placeholder="Email"
-                className="w-full md:w-30rem mb-5"
+                className={`w-full md:w-30rem mb-2 ${
+                  emailError ? "invalid-input" : ""
+                }`} // Adiciona a classe 'invalid-input' se houver erro de email
                 style={{ padding: "1rem" }}
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleEmailChange} // Alterado para chamar a função de validação ao alterar o email
               />
-
+              {emailError && <div className="text-red-600">Email inválido</div>}{" "}
+              {/* Exibe a mensagem de erro abaixo do campo de email se houver erro */}
               <label
                 htmlFor="password1"
                 className="block text-900 font-medium text-xl mb-2"
@@ -84,9 +108,7 @@ function Login() {
                 className="w-full mb-5"
                 inputClassName="w-full p-3 md:w-30rem"
               />
-
               {error && <div className="text-red-600">{error}</div>}
-
               <div className="flex align-items-center justify-content-between mb-5 gap-5">
                 <a
                   className="font-medium no-underline ml-2 text-right cursor-pointer"
