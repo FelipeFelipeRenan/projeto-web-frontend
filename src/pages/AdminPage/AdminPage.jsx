@@ -52,7 +52,7 @@ export default function AdminPage() {
     setTaskDescription("");
     setSelectedPriority(null);
   };
-  
+
   const handleAddParticipant = () => {
     const newParticipant = {
       id: users.length + 1, // Use o comprimento atual da matriz + 1 como ID único
@@ -66,7 +66,7 @@ export default function AdminPage() {
     setParticipantEmail("");
     setParticipantRole("");
   };
-  
+
   const handleAddSquad = () => {
     const newSquad = {
       id: squads.length + 1, // Use o comprimento atual da matriz + 1 como ID único
@@ -79,7 +79,7 @@ export default function AdminPage() {
     setSquadName("");
     setSelectedParticipants([]);
   };
-  
+
   const handleDeleteTask = (taskId) => {
     deleteTask(taskId);
   };

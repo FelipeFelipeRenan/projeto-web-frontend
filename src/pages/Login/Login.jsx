@@ -4,7 +4,7 @@ import { Password } from "primereact/password";
 import { InputText } from "primereact/inputtext";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../contexts/UserContext";
-
+import { Image } from "primereact/image";
 import "./Login.scss";
 
 function Login() {
@@ -20,7 +20,7 @@ function Login() {
       const currentUser = users.find((user) => user.email === email);
       navigate(`/userhome/${currentUser.id}`); // Redireciona para a página userHome do usuário logado
     } else {
-      setError("Credenciais inválidas");  
+      setError("Credenciais inválidas");
     }
   };
 
@@ -41,7 +41,7 @@ function Login() {
           >
             <div className="text-center mb-5">
               <div className="text-900 text-3xl font-medium mb-3">
-                NOME DO SISTEMA
+                <Image src="./src/assets/mascote.png" alt="Image" width="250" />
               </div>
               <span className="text-600 font-medium">
                 Faça seu login para continuar
