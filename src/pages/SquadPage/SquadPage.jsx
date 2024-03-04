@@ -1,7 +1,7 @@
 import React from "react";
 import { useSquad } from "../../contexts/SquadContext";
 import { useUser } from "../../contexts/UserContext";
-import "./SquadPage.scss"; // Importe o arquivo de estilos SCSS
+import "./SquadPage.scss";
 import Header from "../../components/Header/Header";
 
 export default function SquadPage() {

@@ -1,11 +1,10 @@
 import React from "react";
-import "./Modal.scss"; // Importe os estilos do modal
+import "./Modal.scss";
 import { Button } from "primereact/button";
 
-const handleLogin = () =>{
-  //logica para fazer a task como completa
-
-}
+const handleLogin = () => {
+  // Task como completa
+};
 
 export default function Modal({ taskInfo, onClose }) {
   return (
@@ -18,7 +17,6 @@ export default function Modal({ taskInfo, onClose }) {
         <p>Descrição: {taskInfo.description}</p>
         <p>Prioridade: {taskInfo.priority}</p>
         <p>Disponibilidade: {taskInfo.status}</p>
-        {/* Adicione mais informações da task conforme necessário */}
         <Button
           label="Acessar"
           className="w-full p-3 text-xl"

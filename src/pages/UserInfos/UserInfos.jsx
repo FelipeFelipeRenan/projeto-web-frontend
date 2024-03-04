@@ -10,7 +10,6 @@ export default function UserInfos() {
   const { id } = useParams();
   const { users } = useUser();
 
-  // Encontra o participante com base no ID da rota
   const participant = users.find((user) => user.id === parseInt(id));
 
   return (
@@ -29,12 +28,11 @@ export default function UserInfos() {
             <p>
               <strong>E-mail:</strong> {participant.email}
             </p>
-            {/* Adicione mais informações do participante aqui, se necessário */}
           </div>
         ) : (
           <p className="not-found">Participante não encontrado.</p>
         )}
       </div>
-    </> 
+    </>
   );
 }

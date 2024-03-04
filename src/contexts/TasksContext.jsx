@@ -1,9 +1,7 @@
 import React, { createContext, useState, useContext } from "react";
 
-// Criando o contexto para armazenar as tarefas e as funções para manipulá-las
 const TasksContext = createContext();
 
-// Componente de provedor do contexto que encapsula toda a aplicação
 export const TasksProvider = ({ children }) => {
   const [tasks, setTasks] = useState([
     {
@@ -86,7 +84,6 @@ export const TasksProvider = ({ children }) => {
       status: "Aberta",
       assignedTo: 2,
     },
-    // Adicione mais tarefas conforme necessário
   ]);
 
   const addTask = (newTask) => {
@@ -118,9 +115,8 @@ export const TasksProvider = ({ children }) => {
   };
 
   const deleteTask = (taskId) => {
-    setTasks(tasks.filter(task => task.id !== taskId));
+    setTasks(tasks.filter((task) => task.id !== taskId));
   };
-  
 
   return (
     <TasksContext.Provider

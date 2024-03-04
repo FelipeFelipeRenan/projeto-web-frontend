@@ -11,7 +11,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [emailError, setEmailError] = useState(false); // State para controlar a exibição do erro de email
+  const [emailError, setEmailError] = useState(false);
   const { users, loginUser } = useUser();
   const navigate = useNavigate();
 
@@ -25,9 +25,9 @@ function Login() {
     if (loggedIn) {
       const currentUser = users.find((user) => user.email === email);
       if (email === "admin@example.com" && password === "senhaAdmin") {
-        navigate("/admin"); // Redireciona para a página de administração
+        navigate("/admin");
       } else {
-        navigate(`/userhome/${currentUser.id}`); // Redireciona para a página userHome do usuário logado
+        navigate(`/userhome/${currentUser.id}`);
       }
     } else {
       setError("Credenciais inválidas");
@@ -36,8 +36,6 @@ function Login() {
 
   const handleEmailChange = (e) => {
     const emailValue = e.target.value;
-    // Adicione aqui sua lógica de validação de email
-    // Exemplo: Verificar se o email possui um formato válido
     if (!isValidEmail(emailValue)) {
       setEmailError(true);
     } else {
@@ -47,8 +45,6 @@ function Login() {
   };
 
   const isValidEmail = (email) => {
-    // Exemplo simples de validação de email
-    // Esta validação pode ser substituída por uma mais robusta conforme sua necessidade
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
@@ -88,13 +84,14 @@ function Login() {
                 id="email1"
                 type="text"
                 placeholder="Email"
-                className={`w-full md:w-30rem mb-2 ${emailError ? 'invalid-input' : ''}`} // Adiciona a classe 'invalid-input' se houver erro de email
+                className={`w-full md:w-30rem mb-2 ${
+                  emailError ? "invalid-input" : ""
+                }`}
                 style={{ padding: "1rem" }}
                 value={email}
-                onChange={handleEmailChange} // Alterado para chamar a função de validação ao alterar o email
+                onChange={handleEmailChange}
               />
-              {emailError && <div className="text-red-600">Email inválido</div>} {/* Exibe a mensagem de erro abaixo do campo de email se houver erro */}
-
+              {emailError && <div className="text-red-600">Email inválido</div>}{" "}
               <label
                 htmlFor="password1"
                 className="block text-900 font-medium text-xl mb-2"
@@ -111,9 +108,7 @@ function Login() {
                 className="w-full mb-5"
                 inputClassName="w-full p-3 md:w-30rem"
               />
-
               {error && <div className="text-red-600">{error}</div>}
-
               <div className="flex align-items-center justify-content-between mb-5 gap-5">
                 <a
                   className="font-medium no-underline ml-2 text-right cursor-pointer"
@@ -134,5 +129,4 @@ function Login() {
     </div>
   );
 }
-
 export default Login;
