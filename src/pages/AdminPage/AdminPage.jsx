@@ -1,25 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTasks } from "../../contexts/TasksContext";
 import { useUser } from "../../contexts/UserContext";
 import { useSquad } from "../../contexts/SquadContext";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Dialog } from "primereact/dialog";
-import "./AdminPage.scss"; // Importe o arquivo de estilos SCSS
-import Header from "../../components/Header/Header";
-import { useState } from "react";
 import { InputText } from "primereact/inputtext";
 import { Dropdown } from "primereact/dropdown";
 import { InputTextarea } from "primereact/inputtextarea";
+import "./AdminPage.scss"; // Importe o arquivo de estilos SCSS
+import Header from "../../components/Header/Header";
 
 export default function AdminPage() {
-  const { tasks, addTask } = useTasks();
+  const { tasks, addTask, deleteTask } = useTasks();
   const { users, addUser } = useUser();
   const { squads, addSquad } = useSquad();
   const [taskDialog, setTaskDialog] = useState(false);
   const [participanteDialog, setParticipanteDialog] = useState(false);
   const [squadDialog, setSquadDialog] = useState(false);
-  const { deleteTask } = useTasks();
   const [value, setValue] = useState("");
   const [selectedPrioridade, setSelectedPrioridade] = useState(null);
   const [selectedCargo, setSelectedCargo] = useState(null);
@@ -48,12 +46,14 @@ export default function AdminPage() {
     const newParticipant = { name: "Novo Participante teste", tasks: [] };
     addUser(newParticipant);
   };
-
+  
   const handleAddSquad = () => {
     setSquadDialog(false); // Add na ultima linha
     const newSquad = { name: "Nova Squad teste", participants: [], tasks: [] };
     addSquad(newSquad);
   };
+  
+
   const actionTaskDialogFooter = (
     <>
       <Button
@@ -70,6 +70,7 @@ export default function AdminPage() {
       />
     </>
   );
+
   const actionParticipanteDialogFooter = (
     <>
       <Button
@@ -86,6 +87,7 @@ export default function AdminPage() {
       />
     </>
   );
+
   const actionSquadDialogFooter = (
     <>
       <Button
@@ -102,9 +104,11 @@ export default function AdminPage() {
       />
     </>
   );
+
   const handleDeleteTask = (taskId) => {
     deleteTask(taskId);
   };
+
   return (
     <>
       <Header />
@@ -126,17 +130,13 @@ export default function AdminPage() {
                     <Button
                       icon="pi pi-trash"
                       className="p-button-rounded p-button custom-button"
-                      style={{
-                        color: "red",
-                      }}
+                      style={{ color: "red" }}
                       onClick={() => handleDeleteTask(task.id)}
                     />
                     <Button
                       icon="pi pi-pencil"
                       className="p-button-rounded p-button custom-button"
-                      style={{
-                        color: "blue",
-                      }}
+                      style={{ color: "blue" }}
                       // onClick={() => handleEditTask(index)}
                     />
                   </div>
@@ -161,17 +161,13 @@ export default function AdminPage() {
                     <Button
                       icon="pi pi-trash"
                       className="p-button-rounded p-button custom-button"
-                      style={{
-                        color: "red",
-                      }}
+                      style={{ color: "red" }}
                       // onClick={() => handleDeleteTask(index)}
                     />
                     <Button
                       icon="pi pi-pencil"
                       className="p-button-rounded p-button custom-button"
-                      style={{
-                        color: "blue",
-                      }}
+                      style={{ color: "blue" }}
                       // onClick={() => handleEditTask(index)}
                     />
                   </div>
@@ -196,17 +192,13 @@ export default function AdminPage() {
                     <Button
                       icon="pi pi-trash"
                       className="p-button-rounded p-button custom-button"
-                      style={{
-                        color: "red",
-                      }}
+                      style={{ color: "red" }}
                       // onClick={() => handleDeleteTask(index)}
                     />
                     <Button
                       icon="pi pi-pencil"
                       className="p-button-rounded p-button custom-button"
-                      style={{
-                        color: "blue",
-                      }}
+                      style={{ color: "blue" }}
                       // onClick={() => handleEditTask(index)}
                     />
                   </div>
@@ -225,10 +217,7 @@ export default function AdminPage() {
           onHide={() => setTaskDialog(false)}
         >
           <div className="form-group">
-            <label
-              htmlFor="titulo"
-              className="block text-900 text-xl font-medium mb-2"
-            >
+            <label htmlFor="titulo" className="block text-900 text-xl font-medium mb-2">
               Titulo
             </label>
             <InputText
@@ -240,10 +229,7 @@ export default function AdminPage() {
             />
           </div>
           <div className="form-group">
-            <label
-              htmlFor="prioridade"
-              className="block text-900 font-medium text-xl mb-2"
-            >
+            <label htmlFor="prioridade" className="block text-900 font-medium text-xl mb-2">
               Prioridade
             </label>
             <Dropdown
@@ -256,10 +242,7 @@ export default function AdminPage() {
             />
           </div>
           <div className="form-group">
-            <label
-              htmlFor="detalhes"
-              className="block text-900 font-medium text-xl mb-2"
-            >
+            <label htmlFor="detalhes" className="block text-900 font-medium text-xl mb-2">
               Descrição
             </label>
             <InputTextarea
@@ -280,10 +263,7 @@ export default function AdminPage() {
           footer={actionParticipanteDialogFooter}
           onHide={() => setParticipanteDialog(false)}
         >
-          <label
-            htmlFor="nome1"
-            className="block text-900 text-xl font-medium mb-2"
-          >
+          <label htmlFor="nome1" className="block text-900 text-xl font-medium mb-2">
             Nome
           </label>
           <InputText
@@ -293,10 +273,7 @@ export default function AdminPage() {
             className="w-full md:w-30rem mb-5"
             style={{ padding: "1rem" }}
           />
-          <label
-            htmlFor="email1"
-            className="block text-900 text-xl font-medium mb-2"
-          >
+          <label htmlFor="email1" className="block text-900 text-xl font-medium mb-2">
             E-mail
           </label>
           <InputText
@@ -306,10 +283,7 @@ export default function AdminPage() {
             className="w-full md:w-30rem mb-5"
             style={{ padding: "1rem" }}
           />
-          <label
-            htmlFor="cargo"
-            className="block text-900 font-medium text-xl mb-2"
-          >
+          <label htmlFor="cargo" className="block text-900 font-medium text-xl mb-2">
             Cargo
           </label>
           <Dropdown
@@ -329,10 +303,7 @@ export default function AdminPage() {
           footer={actionSquadDialogFooter}
           onHide={() => setSquadDialog(false)}
         >
-          <label
-            htmlFor="titulo"
-            className="block text-900 text-xl font-medium mb-2"
-          >
+          <label htmlFor="titulo" className="block text-900 text-xl font-medium mb-2">
             Titulo
           </label>
           <InputText
@@ -342,10 +313,7 @@ export default function AdminPage() {
             className="w-full md:w-30rem mb-5"
             style={{ padding: "1rem" }}
           />
-          <label
-            htmlFor="prioridade"
-            className="block text-900 font-medium text-xl mb-2"
-          >
+          <label htmlFor="prioridade" className="block text-900 font-medium text-xl mb-2">
             Prioridade
           </label>
           <Dropdown
@@ -357,10 +325,7 @@ export default function AdminPage() {
             className="w-full"
           />
           <div className="w-full" style={{ marginTop: "5%" }}>
-            <label
-              htmlFor="detalhes"
-              className="block text-900 font-medium text-xl mb-2"
-            >
+            <label htmlFor="detalhes" className="block text-900 font-medium text-xl mb-2">
               Detalhes
             </label>
             <InputTextarea
