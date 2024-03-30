@@ -3,8 +3,9 @@ import React, { createContext, useState, useContext } from "react";
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [users, setUsers] = useState([
-    {
+  const [users, setUsers] = useState([]);
+
+/*    {
       id: 0,
       name: "Admin",
       email: "admin@example.com",
@@ -39,10 +40,7 @@ export const UserProvider = ({ children }) => {
       role: "Analista",
       squadId: 1,
       tasks: [],
-    },
-  ]);
-  const [user, setUser] = useState(null);
-
+    },*/
   const assignTaskToUser = (userId, task) => {
     setUsers(
       users.map((user) =>
@@ -56,7 +54,7 @@ export const UserProvider = ({ children }) => {
       (user) => user.email === email && user.password === password
     );
     if (user) {
-      setUser(user);
+      setUsers(user);
       return true;
     } else {
       return false;
@@ -64,7 +62,7 @@ export const UserProvider = ({ children }) => {
   };
 
   const logoutUser = () => {
-    setUser(null);
+    setUsers(null);
   };
 
   const addUser = (newUser) => {
@@ -79,12 +77,12 @@ export const UserProvider = ({ children }) => {
     <UserContext.Provider
       value={{
         users,
+        setUsers,
         assignTaskToUser,
         loginUser,
         logoutUser,
         addUser,
         deleteUser,
-        user,
       }}
     >
       {children}

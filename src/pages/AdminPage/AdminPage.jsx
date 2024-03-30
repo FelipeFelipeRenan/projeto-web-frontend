@@ -12,9 +12,9 @@ import SquadModal from "../../components/ModalSquad/ModalSquad";
 import axios from "axios";
 
 export default function AdminPage() {
-  const { tasks, addTask,setTasks, deleteTask } = useTasks();
-  const { users,setUsers, addUser, deleteUser } = useUser();
-  const { squads, setSquads,addSquad, deleteSquad } = useSquad();
+  const { tasks, addTask, setTasks, deleteTask } = useTasks();
+  const { users, setUsers, addUser,  } = useUser();
+  const { squads, setSquads, addSquad, deleteSquad } = useSquad();
   const [taskDialog, setTaskDialog] = useState(false);
   const [participantDialog, setParticipantDialog] = useState(false);
   const [squadDialog, setSquadDialog] = useState(false);
@@ -23,14 +23,20 @@ export default function AdminPage() {
     // Função para buscar os dados da API Quarkus
     const fetchData = async () => {
       try {
-        const tasksResponse = await axios.get("http://localhost:8080/api/v1/tasks");
+        const tasksResponse = await axios.get(
+          "http://localhost:8080/api/v1/tasks"
+        );
         setTasks(tasksResponse.data);
-        console.log(tasksResponse.data)
-        const usersResponse = await axios.get("http://localhost:8080/api/v1/participantes");
+        console.log(tasksResponse.data);
+        const usersResponse = await axios.get(
+          "http://localhost:8080/api/v1/participantes"
+        );
         setUsers(usersResponse.data);
-        console.log(usersResponse.data)
-        const squadsResponse = await axios.get("http://localhost:8080/api/v1/squads");
-        console.log(squadsResponse)
+        console.log(usersResponse.data);
+        const squadsResponse = await axios.get(
+          "http://localhost:8080/api/v1/squads"
+        );
+        console.log(squadsResponse);
         setSquads(squadsResponse.data);
       } catch (error) {
         console.error("Erro ao buscar dados da API:", error);
@@ -44,9 +50,15 @@ export default function AdminPage() {
     deleteTask(taskId);
   };
 
-  const handleDeleteParticipant = (participantId) => {
-    deleteUser(participantId);
+  const handleDeleteParticipant = async (participantId) => {
+    try {
+      await axios.delete(`http://localhost:8080/api/v1/participantes/${participantId}`);
+      setUsers(users.filter((user) => user.id !== participantId));
+    } catch (error) {
+      console.error("Erro ao deletar participante:", error);
+    }
   };
+
 
   const handleDeleteSquad = (index) => {
     deleteSquad(squads[index].id);
@@ -63,7 +75,7 @@ export default function AdminPage() {
           className="p-button-raised p-button-rounded p-button-text"
           onClick={() => setTaskDialog(true)}
         />
- <div className="tasks-container">
+        <div className="tasks-container">
           <div className="card-container">
             {tasks.map((task, index) => (
               <Card key={index} className="task-card">
@@ -105,7 +117,7 @@ export default function AdminPage() {
           </div>
         </div>
 
-
+       
         <div className="participants-container">
           <h2>Participantes</h2>
           <Button
@@ -114,16 +126,24 @@ export default function AdminPage() {
             onClick={() => setParticipantDialog(true)}
           />
           <div className="card-container">
-            {users.map((user, index) => (
-              <Card key={index} className="participant-card" title={user.name}>
-                <p>Email: {user.email}</p>
-                <p>Cargo: {user.role}</p>
+            {users.map((user) => (
+              <Card key={user.id} className="participant-card">
+                <div>
+                  <strong>Name:</strong> {user.nome}
+                </div>
+                <div>
+                  <strong>Email:</strong> {user.email}
+                </div>
+                <div>
+                  <strong>Cargo:</strong> {user.cargo}
+                </div>
                 <div className="card-actions">
                   <div className="card-buttons">
                     <Button
                       icon="pi pi-pencil"
                       className="p-button-rounded p-button custom-button"
                       style={{ color: "blue" }}
+                      // Adicione a lógica para editar participante conforme necessário
                     />
                     <Button
                       icon="pi pi-trash"
