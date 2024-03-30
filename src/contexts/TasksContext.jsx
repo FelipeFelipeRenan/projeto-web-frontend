@@ -122,6 +122,7 @@ export const TasksProvider = ({ children }) => {
     <TasksContext.Provider
       value={{
         tasks,
+        setTasks,
         addTask,
         assignTaskToParticipant,
         markTaskAsCompleted,

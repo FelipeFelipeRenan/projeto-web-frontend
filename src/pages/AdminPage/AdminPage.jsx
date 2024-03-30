@@ -23,13 +23,13 @@ export default function AdminPage() {
     // Função para buscar os dados da API Quarkus
     const fetchData = async () => {
       try {
-        const tasksResponse = await axios.get("http://localhost:8008/tasks");
+        const tasksResponse = await axios.get("http://localhost:8080/api/v1/tasks");
         setTasks(tasksResponse.data);
-        console.log(tasksResponse)
-        const usersResponse = await axios.get("http://localhost:8008/users");
+        console.log(tasksResponse.data)
+        const usersResponse = await axios.get("http://localhost:8080/api/v1/participantes");
         setUsers(usersResponse.data);
-        console.log(usersResponse)
-        const squadsResponse = await axios.get("http://localhost:8008/squads");
+        console.log(usersResponse.data)
+        const squadsResponse = await axios.get("http://localhost:8080/api/v1/squads");
         console.log(squadsResponse)
         setSquads(squadsResponse.data);
       } catch (error) {
@@ -63,11 +63,28 @@ export default function AdminPage() {
           className="p-button-raised p-button-rounded p-button-text"
           onClick={() => setTaskDialog(true)}
         />
-        <div className="tasks-container">
+ <div className="tasks-container">
           <div className="card-container">
             {tasks.map((task, index) => (
-              <Card key={index} className="task-card" title={task.description}>
-                <p>Status: {task.status}</p>
+              <Card key={index} className="task-card">
+                <div>
+                  <strong>available:</strong> {String(task.available)}
+                </div>
+                <div>
+                  <strong>completed:</strong> {String(task.completed)}
+                </div>
+                <div>
+                  <strong>description:</strong> {task.description}
+                </div>
+                <div>
+                  <strong>dueDate:</strong> {task.dueDate}
+                </div>
+                <div>
+                  <strong>id:</strong> {task.id}
+                </div>
+                <div>
+                  <strong>title:</strong> {task.title}
+                </div>
                 <div className="card-actions">
                   <div className="card-buttons">
                     <Button
@@ -87,6 +104,7 @@ export default function AdminPage() {
             ))}
           </div>
         </div>
+
 
         <div className="participants-container">
           <h2>Participantes</h2>
