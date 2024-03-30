@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { useTasks } from "../../contexts/TasksContext";
@@ -9,14 +9,36 @@ import Header from "../../components/Header/Header";
 import TaskModal from "../../components/ModalTask/ModalTask";
 import ParticipantModal from "../../components/ModalParticipante/ModalParticipante";
 import SquadModal from "../../components/ModalSquad/ModalSquad";
+import axios from "axios";
 
 export default function AdminPage() {
-  const { tasks, addTask, deleteTask } = useTasks();
-  const { users, addUser, deleteUser } = useUser();
-  const { squads, addSquad, deleteSquad } = useSquad();
+  const { tasks, addTask,setTasks, deleteTask } = useTasks();
+  const { users,setUsers, addUser, deleteUser } = useUser();
+  const { squads, setSquads,addSquad, deleteSquad } = useSquad();
   const [taskDialog, setTaskDialog] = useState(false);
   const [participantDialog, setParticipantDialog] = useState(false);
   const [squadDialog, setSquadDialog] = useState(false);
+
+  useEffect(() => {
+    // Função para buscar os dados da API Quarkus
+    const fetchData = async () => {
+      try {
+        const tasksResponse = await axios.get("http://localhost:8008/tasks");
+        setTasks(tasksResponse.data);
+        console.log(tasksResponse)
+        const usersResponse = await axios.get("http://localhost:8008/users");
+        setUsers(usersResponse.data);
+        console.log(usersResponse)
+        const squadsResponse = await axios.get("http://localhost:8008/squads");
+        console.log(squadsResponse)
+        setSquads(squadsResponse.data);
+      } catch (error) {
+        console.error("Erro ao buscar dados da API:", error);
+      }
+    };
+
+    fetchData(); // Chama a função ao carregar a página
+  }, []);
 
   const handleDeleteTask = (taskId) => {
     deleteTask(taskId);
