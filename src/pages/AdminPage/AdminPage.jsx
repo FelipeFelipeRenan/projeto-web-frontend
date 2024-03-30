@@ -13,7 +13,7 @@ import axios from "axios";
 
 export default function AdminPage() {
   const { tasks, addTask, setTasks, deleteTask } = useTasks();
-  const { users, setUsers, addUser,  } = useUser();
+  const { users, setUsers, addUser } = useUser();
   const { squads, setSquads, addSquad, deleteSquad } = useSquad();
   const [taskDialog, setTaskDialog] = useState(false);
   const [participantDialog, setParticipantDialog] = useState(false);
@@ -36,15 +36,15 @@ export default function AdminPage() {
         const squadsResponse = await axios.get(
           "http://localhost:8080/api/v1/squads"
         );
-        console.log(squadsResponse);
         setSquads(squadsResponse.data);
+        console.log(squadsResponse.data);
       } catch (error) {
         console.error("Erro ao buscar dados da API:", error);
       }
     };
 
     fetchData(); // Chama a função ao carregar a página
-  }, []);
+  }, [setTasks, setUsers, setSquads]);
 
   const handleDeleteTask = (taskId) => {
     deleteTask(taskId);
@@ -52,16 +52,22 @@ export default function AdminPage() {
 
   const handleDeleteParticipant = async (participantId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/v1/participantes/${participantId}`);
+      await axios.delete(
+        `http://localhost:8080/api/v1/participantes/${participantId}`
+      );
       setUsers(users.filter((user) => user.id !== participantId));
     } catch (error) {
       console.error("Erro ao deletar participante:", error);
     }
   };
 
-
-  const handleDeleteSquad = (index) => {
-    deleteSquad(squads[index].id);
+  const handleDeleteSquad = async (squadId) => {
+    try {
+      await axios.delete(`http://localhost:8080/api/v1/squads/${squadId}`);
+      setSquads(squads.filter((squad) => squad.id !== squadId));
+    } catch (error) {
+      console.error("Erro ao deletar squad:", error);
+    }
   };
 
   return (
@@ -117,7 +123,6 @@ export default function AdminPage() {
           </div>
         </div>
 
-       
         <div className="participants-container">
           <h2>Participantes</h2>
           <Button
@@ -166,21 +171,25 @@ export default function AdminPage() {
             onClick={() => setSquadDialog(true)}
           />
           <div className="card-container">
-            {squads.map((squad, index) => (
-              <Card key={index} className="squad-card" title={squad.name}>
-                <p>Total de participantes: {squad.participants.length}</p>
+            {squads.map((squad) => (
+              <Card key={squad.id} className="squad-card">
+                <div>
+                  <strong>Name:</strong> {squad.nome}
+                </div>
+                <div></div>
                 <div className="card-actions">
                   <div className="card-buttons">
                     <Button
                       icon="pi pi-pencil"
                       className="p-button-rounded p-button custom-button"
                       style={{ color: "blue" }}
+                      // Adicione a lógica para editar squad conforme necessário
                     />
                     <Button
                       icon="pi pi-trash"
                       className="p-button-rounded p-button custom-button"
                       style={{ color: "red" }}
-                      onClick={() => handleDeleteSquad(index)}
+                      onClick={() => handleDeleteSquad(squad.id)}
                     />
                   </div>
                 </div>

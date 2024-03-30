@@ -16,7 +16,7 @@ export const SquadProvider = ({ children }) => {
   };
 
   return (
-    <SquadContext.Provider value={{ squads, addSquad, deleteSquad }}>
+    <SquadContext.Provider value={{ squads,setSquads, addSquad, deleteSquad }}>
       {children}
     </SquadContext.Provider>
   );
