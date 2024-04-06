@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Task from "../../components/Task/Task";
 import Modal from "../../components/Modal/Modal";
@@ -15,7 +15,7 @@ function UserHome() {
   const { user: loggedInUser } = useUser();
   const { id: userIdFromParams } = useParams();
   const navigate = useNavigate();
-  const [participantTasks, setParticipantTasks] = useState([]); // Inicializando como uma array vazia
+  const [participantTasks, setParticipantTasks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -24,7 +24,7 @@ function UserHome() {
     const fetchTasks = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/api/v1/tasks/${userIdFromParams}`);
-        setParticipantTasks(response.data); // Atualizando participantTasks com as tarefas retornadas pela API
+        setParticipantTasks(response.data);
       } catch (error) {
         console.error("Error fetching tasks:", error);
       }
@@ -32,6 +32,13 @@ function UserHome() {
 
     fetchTasks();
   }, [userIdFromParams]);
+
+  const [participant, setParticipant] = useState(null);
+
+  useEffect(() => {
+    const userFromLocalStorage = JSON.parse(localStorage.getItem("loggedInUser"));
+    setParticipant(userFromLocalStorage);
+  }, []);
 
   const handleTaskClick = (taskInfo) => {
     setSelectedTask(taskInfo);
@@ -44,8 +51,8 @@ function UserHome() {
 
   const filterItems = [
     { label: "Todas", value: "all" },
-    { label: "Abertas", value: "abertas" },
-    { label: "Fechadas", value: "fechadas" },
+    { label: "Abertas", value: "Aberto" },
+    { label: "Fechadas", value: "Fechado" },
   ];
 
   const handleFilterChange = (e) => {
@@ -57,11 +64,11 @@ function UserHome() {
       <Header />
       <main className="home-container">
         <h1 className="home-title">
-          Lista de Tarefas de {loggedInUser && loggedInUser.nome}
+          Lista de Tarefas de {participant ? participant.nome : ""}
         </h1>
         {/* Adicione esta linha para mostrar as informações do usuário */}
-        <p>Email: {loggedInUser && loggedInUser.email}</p>
-        <p>Cargo: {loggedInUser && loggedInUser.cargo}</p>
+        <p>Email: {participant ? participant.email : ""}</p>
+        <p>Cargo: {participant ? participant.cargo : ""}</p>
 
         <div className="filter-buttons">
           <TabMenu

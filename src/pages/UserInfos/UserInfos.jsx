@@ -1,12 +1,9 @@
 import  { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
-import { useUser } from "../../contexts/UserContext";
-import { useParams } from "react-router-dom";
 import "./UserInfos.scss";
 
 export default function UserInfos() {
-  const { id } = useParams();
-  const { users } = useUser();
+
   const [participant, setParticipant] = useState(null);
 
   useEffect(() => {
