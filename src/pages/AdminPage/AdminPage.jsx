@@ -12,9 +12,9 @@ import SquadModal from "../../components/ModalSquad/ModalSquad";
 import axios from "axios";
 
 export default function AdminPage() {
-  const { tasks, addTask,setTasks, deleteTask } = useTasks();
-  const { users,setUsers, addUser, deleteUser } = useUser();
-  const { squads, setSquads,addSquad, deleteSquad } = useSquad();
+  const { tasks, addTask, setTasks, deleteTask } = useTasks();
+  const { users, setUsers, addUser } = useUser();
+  const { squads, setSquads, addSquad, deleteSquad } = useSquad();
   const [taskDialog, setTaskDialog] = useState(false);
   const [participantDialog, setParticipantDialog] = useState(false);
   const [squadDialog, setSquadDialog] = useState(false);
@@ -23,33 +23,51 @@ export default function AdminPage() {
     // Função para buscar os dados da API Quarkus
     const fetchData = async () => {
       try {
-        const tasksResponse = await axios.get("http://localhost:8008/tasks");
+        const tasksResponse = await axios.get(
+          "http://localhost:8080/api/v1/tasks"
+        );
         setTasks(tasksResponse.data);
-        console.log(tasksResponse)
-        const usersResponse = await axios.get("http://localhost:8008/users");
+        console.log(tasksResponse.data);
+        const usersResponse = await axios.get(
+          "http://localhost:8080/api/v1/participantes"
+        );
         setUsers(usersResponse.data);
-        console.log(usersResponse)
-        const squadsResponse = await axios.get("http://localhost:8008/squads");
-        console.log(squadsResponse)
+        console.log(usersResponse.data);
+        const squadsResponse = await axios.get(
+          "http://localhost:8080/api/v1/squads"
+        );
         setSquads(squadsResponse.data);
+        console.log(squadsResponse.data);
       } catch (error) {
         console.error("Erro ao buscar dados da API:", error);
       }
     };
 
     fetchData(); // Chama a função ao carregar a página
-  }, []);
+  }, [setTasks, setUsers, setSquads]);
 
   const handleDeleteTask = (taskId) => {
     deleteTask(taskId);
   };
 
-  const handleDeleteParticipant = (participantId) => {
-    deleteUser(participantId);
+  const handleDeleteParticipant = async (participantId) => {
+    try {
+      await axios.delete(
+        `http://localhost:8080/api/v1/participantes/${participantId}`
+      );
+      setUsers(users.filter((user) => user.id !== participantId));
+    } catch (error) {
+      console.error("Erro ao deletar participante:", error);
+    }
   };
 
-  const handleDeleteSquad = (index) => {
-    deleteSquad(squads[index].id);
+  const handleDeleteSquad = async (squadId) => {
+    try {
+      await axios.delete(`http://localhost:8080/api/v1/squads/${squadId}`);
+      setSquads(squads.filter((squad) => squad.id !== squadId));
+    } catch (error) {
+      console.error("Erro ao deletar squad:", error);
+    }
   };
 
   return (
@@ -66,8 +84,25 @@ export default function AdminPage() {
         <div className="tasks-container">
           <div className="card-container">
             {tasks.map((task, index) => (
-              <Card key={index} className="task-card" title={task.description}>
-                <p>Status: {task.status}</p>
+              <Card key={index} className="task-card">
+                <div>
+                  <strong>available:</strong> {String(task.available)}
+                </div>
+                <div>
+                  <strong>completed:</strong> {String(task.completed)}
+                </div>
+                <div>
+                  <strong>description:</strong> {task.description}
+                </div>
+                <div>
+                  <strong>dueDate:</strong> {task.dueDate}
+                </div>
+                <div>
+                  <strong>id:</strong> {task.id}
+                </div>
+                <div>
+                  <strong>title:</strong> {task.title}
+                </div>
                 <div className="card-actions">
                   <div className="card-buttons">
                     <Button
@@ -96,16 +131,24 @@ export default function AdminPage() {
             onClick={() => setParticipantDialog(true)}
           />
           <div className="card-container">
-            {users.map((user, index) => (
-              <Card key={index} className="participant-card" title={user.name}>
-                <p>Email: {user.email}</p>
-                <p>Cargo: {user.role}</p>
+            {users.map((user) => (
+              <Card key={user.id} className="participant-card">
+                <div>
+                  <strong>Name:</strong> {user.nome}
+                </div>
+                <div>
+                  <strong>Email:</strong> {user.email}
+                </div>
+                <div>
+                  <strong>Cargo:</strong> {user.cargo}
+                </div>
                 <div className="card-actions">
                   <div className="card-buttons">
                     <Button
                       icon="pi pi-pencil"
                       className="p-button-rounded p-button custom-button"
                       style={{ color: "blue" }}
+                      // Adicione a lógica para editar participante conforme necessário
                     />
                     <Button
                       icon="pi pi-trash"
@@ -128,21 +171,25 @@ export default function AdminPage() {
             onClick={() => setSquadDialog(true)}
           />
           <div className="card-container">
-            {squads.map((squad, index) => (
-              <Card key={index} className="squad-card" title={squad.name}>
-                <p>Total de participantes: {squad.participants.length}</p>
+            {squads.map((squad) => (
+              <Card key={squad.id} className="squad-card">
+                <div>
+                  <strong>Name:</strong> {squad.nome}
+                </div>
+                <div></div>
                 <div className="card-actions">
                   <div className="card-buttons">
                     <Button
                       icon="pi pi-pencil"
                       className="p-button-rounded p-button custom-button"
                       style={{ color: "blue" }}
+                      // Adicione a lógica para editar squad conforme necessário
                     />
                     <Button
                       icon="pi pi-trash"
                       className="p-button-rounded p-button custom-button"
                       style={{ color: "red" }}
-                      onClick={() => handleDeleteSquad(index)}
+                      onClick={() => handleDeleteSquad(squad.id)}
                     />
                   </div>
                 </div>

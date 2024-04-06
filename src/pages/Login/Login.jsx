@@ -29,21 +29,6 @@ function Login() {
     }
   };
 
-  const handleEmailChange = (e) => {
-    const emailValue = e.target.value;
-    if (!isValidEmail(emailValue)) {
-      setEmailError(true);
-    } else {
-      setEmailError(false);
-    }
-    setEmail(emailValue);
-  };
-
-  const isValidEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
   return (
     <div className="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden p-input-filled">
       <div className="flex flex-column align-items-center justify-content-center">
@@ -79,14 +64,11 @@ function Login() {
                 id="email1"
                 type="text"
                 placeholder="Email"
-                className={`w-full md:w-30rem mb-2 ${
-                  emailError ? "invalid-input" : ""
-                }`}
+                className="w-full md:w-30rem mb-2"
                 style={{ padding: "1rem" }}
                 value={email}
-                onChange={handleEmailChange}
+                onChange={(e) => setEmail(e.target.value)}
               />
-              {emailError && <div className="text-red-600">Email inválido</div>}{" "}
               <label
                 htmlFor="password1"
                 className="block text-900 font-medium text-xl mb-2"
@@ -124,4 +106,5 @@ function Login() {
     </div>
   );
 }
+
 export default Login;
