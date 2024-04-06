@@ -8,6 +8,7 @@ import "./UserHome.scss";
 import { useTasks } from "../../contexts/TasksContext";
 import { useUser } from "../../contexts/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 function UserHome() {
   const { tasks } = useTasks();
@@ -19,7 +20,7 @@ function UserHome() {
   const [selectedTask, setSelectedTask] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
- /* useEffect(() => {
+  /* useEffect(() => {
     const user = users.find((u) => u.id === parseInt(userIdFromParams, 10));
     if (!user) {
       if (loggedInUser && loggedInUser.id.toString() !== userIdFromParams) {
@@ -45,6 +46,13 @@ function UserHome() {
     }
   }, [userIdFromParams, tasks, users, navigate, loggedInUser, activeIndex]);
 */
+
+  useEffect(() => {
+    
+    const tasks = axios.get(`http://localhost:8080/api/v1/tasks/${localStorage.getItem("tasksIds")}`);
+    
+  }, []);
+
   const handleTaskClick = (taskInfo) => {
     setSelectedTask(taskInfo);
     setIsModalOpen(true);
@@ -70,12 +78,11 @@ function UserHome() {
       <main className="home-container">
         <h1 className="home-title">
           Lista de Tarefas de {localStorage.getItem("name")}
-          
         </h1>
         {/* Adicione esta linha para mostrar as informações do usuário */}
         <p>Email: {localStorage.getItem("email")}</p>
         <p>Cargo: {localStorage.getItem("cargo")}</p>
-      
+
         <div className="filter-buttons">
           <TabMenu
             model={filterItems}
@@ -87,7 +94,7 @@ function UserHome() {
           {participantTasks.length === 0 ? (
             <p>Nenhuma tarefa encontrada.</p>
           ) : (
-            participantTasks.map((task) => (
+            tasks.map((task) => (
               <Card
                 key={task.id}
                 title={task.title}

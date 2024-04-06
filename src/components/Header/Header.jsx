@@ -10,7 +10,7 @@ export default function Header() {
 
   const isUserInfosPage = location.pathname.includes('userInfos');
   const linkText = isUserInfosPage ? 'Minhas Tasks' : 'Informações';
-  const linkTo = isUserInfosPage ? (user ? `/userhome/${user.id}` : '/mainHome') : `/userInfos/${user?.id || ''}`;
+  const linkTo = isUserInfosPage ? (user ? `/userhome/${localStorage.getItem("id")}` : '/mainHome') : `/userInfos/${localStorage.getItem("id") || ''}`;
 
   const handleLogout = () => {
     logoutUser();
@@ -26,9 +26,9 @@ export default function Header() {
         </nav>
         <nav>
           {user ? (
-            <Link to="/login" onClick={handleLogout}>Sair</Link>
+            <Link to="/" onClick={handleLogout}>Sair</Link>
           ) : (
-            <Link to="/login">Login</Link>
+            <Link to="/">Login</Link>
           )}
         </nav>
       </header>

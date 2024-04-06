@@ -48,8 +48,9 @@ export const UserProvider = ({ children }) => {
       localStorage.setItem("name", user.nome)
       localStorage.setItem("email", user.email)
       localStorage.setItem("cargo", user.cargo)
+      localStorage.setItem("tasks", user.tasksIds)
 
-      console.log("cargo", localStorage.getItem("cargo"))
+      console.log("tasks", localStorage.getItem("tasks"))
       console.log("email", localStorage.getItem("email"))
       // Adicione qualquer ação que você deseja realizar após o login aqui
     }
