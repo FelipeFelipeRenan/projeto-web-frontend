@@ -73,7 +73,8 @@ function UserHome() {
           
         </h1>
         {/* Adicione esta linha para mostrar as informações do usuário */}
-        <p>Email: {loggedInUser && loggedInUser.email}</p>
+        <p>Email: {localStorage.getItem("email")}</p>
+        <p>Cargo: {localStorage.getItem("cargo")}</p>
       
         <div className="filter-buttons">
           <TabMenu

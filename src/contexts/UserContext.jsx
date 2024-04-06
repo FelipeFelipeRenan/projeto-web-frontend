@@ -46,9 +46,11 @@ export const UserProvider = ({ children }) => {
       console.log("Usuário logado:", user);
       localStorage.setItem("id", user.id)
       localStorage.setItem("name", user.nome)
+      localStorage.setItem("email", user.email)
+      localStorage.setItem("cargo", user.cargo)
 
-      console.log("id", localStorage.getItem("id"))
-      console.log("name", localStorage.getItem("name"))
+      console.log("cargo", localStorage.getItem("cargo"))
+      console.log("email", localStorage.getItem("email"))
       // Adicione qualquer ação que você deseja realizar após o login aqui
     }
 
