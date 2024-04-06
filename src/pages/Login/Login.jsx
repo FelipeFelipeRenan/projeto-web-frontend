@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "primereact/button";
 import { Password } from "primereact/password";
 import { InputText } from "primereact/inputtext";
@@ -12,23 +12,18 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [emailError, setEmailError] = useState(false);
-  const { users, loginUser } = useUser();
+  const { loginUser } = useUser(); // Removido users e navigate
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = async () => { // Adicionado async para usar await no loginUser
     if (!email || !password) {
       setError("Preencha todos os campos.");
       return;
     }
 
-    const loggedIn = loginUser(email, password);
+    const loggedIn = await loginUser(email, password); // Adicionado await para aguardar o retorno do loginUser
     if (loggedIn) {
-      const currentUser = users.find((user) => user.email === email);
-      if (email === "admin@example.com" && password === "senhaAdmin") {
-        navigate("/admin");
-      } else {
-        navigate(`/userhome/${currentUser.id}`);
-      }
+      navigate(`/userhome/1`); // Redirecionar para a página principal após login
     } else {
       setError("Credenciais inválidas");
     }

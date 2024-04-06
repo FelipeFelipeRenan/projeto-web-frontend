@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
+import axios from "axios";
 
 const UserContext = createContext();
 
@@ -41,7 +42,12 @@ export const UserProvider = ({ children }) => {
       tasks: [],
     },
   ]);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
+
+  // Função para atualizar o usuário no contexto
+  const updateUser = (userData) => {
+    setUser(userData);
+  };
 
   const assignTaskToUser = (userId, task) => {
     setUsers(
@@ -51,18 +57,33 @@ export const UserProvider = ({ children }) => {
     );
   };
 
-  const loginUser = (email, password) => {
-    const user = users.find(
-      (user) => user.email === email && user.password === password
-    );
-    if (user) {
-      setUser(user);
-      return true;
-    } else {
+  const loginUser = async (email, password) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/v1/participantes/login/${email}`
+      );
+      console.log(response.data.pwd === password);
+      if (response.data.pwd === password) {
+        updateUser(response.data);
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error logging in:", error);
       return false;
     }
   };
 
+  useEffect(() => {
+    // Exemplo de ação a ser realizada após o login (redirecionamento, etc.)
+    if (user) {
+      console.log("Usuário logado:", user);
+      // Adicione qualquer ação que você deseja realizar após o login aqui
+    }
+
+  
+  }, [user]); // Este useEffect será acionado quando o valor de 'user' mudar
   const logoutUser = () => {
     setUser(null);
   };
