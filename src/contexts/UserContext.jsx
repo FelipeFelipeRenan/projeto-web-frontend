@@ -5,42 +5,7 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [users, setUsers] = useState([
-    {
-      id: 0,
-      name: "Admin",
-      email: "admin@example.com",
-      password: "senhaAdmin",
-      role: "Chefe",
-      squadId: 0,
-      tasks: [],
-    },
-    {
-      id: 1,
-      name: "Alice",
-      email: "alice@example.com",
-      password: "senhaAlice",
-      role: "Desenvolvedor",
-      squadId: 1,
-      tasks: [],
-    },
-    {
-      id: 2,
-      name: "Bob",
-      email: "bob@example.com",
-      password: "senhaBob",
-      role: "Gerente",
-      squadId: 2,
-      tasks: [],
-    },
-    {
-      id: 3,
-      name: "Charlie",
-      email: "charlie@example.com",
-      password: "senhaCharlie",
-      role: "Analista",
-      squadId: 1,
-      tasks: [],
-    },
+,
   ]);
   const [user, setUser] = useState();
 
@@ -79,6 +44,11 @@ export const UserProvider = ({ children }) => {
     // Exemplo de ação a ser realizada após o login (redirecionamento, etc.)
     if (user) {
       console.log("Usuário logado:", user);
+      localStorage.setItem("id", user.id)
+      localStorage.setItem("name", user.nome)
+
+      console.log("id", localStorage.getItem("id"))
+      console.log("name", localStorage.getItem("name"))
       // Adicione qualquer ação que você deseja realizar após o login aqui
     }
 

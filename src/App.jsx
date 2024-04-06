@@ -10,7 +10,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import MainHome from "./pages/MainHome/MainHome";
 import UserHome from "./pages/Home/UserHome";
-import Menu from "./components/MenuLateral/Menu";
 import UserInfos from "./pages/UserInfos/UserInfos";
 import SquadPage from "./pages/SquadPage/SquadPage";
 import Participantes from "./pages/Participantes/Participantes";
@@ -20,7 +19,7 @@ import AdminPage from "./pages/AdminPage/AdminPage";
 
 const routes = createBrowserRouter([
   {
-    path: "/userHome/:id",
+    path: `/userHome/:id`,
     element: <UserHome />,
   },
   {

@@ -19,13 +19,13 @@ function UserHome() {
   const [selectedTask, setSelectedTask] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
+ /* useEffect(() => {
     const user = users.find((u) => u.id === parseInt(userIdFromParams, 10));
     if (!user) {
       if (loggedInUser && loggedInUser.id.toString() !== userIdFromParams) {
         navigate(`/userHome/${loggedInUser.id}`);
       } else {
-        navigate("/login");
+        navigate("/");
       }
     } else {
       const filteredTasks = tasks.filter((task) => {
@@ -44,7 +44,7 @@ function UserHome() {
       setParticipantTasks(filteredTasks);
     }
   }, [userIdFromParams, tasks, users, navigate, loggedInUser, activeIndex]);
-
+*/
   const handleTaskClick = (taskInfo) => {
     setSelectedTask(taskInfo);
     setIsModalOpen(true);
@@ -69,8 +69,12 @@ function UserHome() {
       <Header />
       <main className="home-container">
         <h1 className="home-title">
-          Lista de Tarefas de {loggedInUser && loggedInUser.name}
+          Lista de Tarefas de {localStorage.getItem("name")}
+          
         </h1>
+        {/* Adicione esta linha para mostrar as informações do usuário */}
+        <p>Email: {loggedInUser && loggedInUser.email}</p>
+      
         <div className="filter-buttons">
           <TabMenu
             model={filterItems}

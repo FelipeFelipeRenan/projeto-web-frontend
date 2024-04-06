@@ -3,7 +3,7 @@ import { Button } from "primereact/button";
 import { Password } from "primereact/password";
 import { InputText } from "primereact/inputtext";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../../contexts/UserContext";
+import { useUser} from "../../contexts/UserContext";
 import { Image } from "primereact/image";
 import "./Login.scss";
 
@@ -23,7 +23,7 @@ function Login() {
 
     const loggedIn = await loginUser(email, password); // Adicionado await para aguardar o retorno do loginUser
     if (loggedIn) {
-      navigate(`/userhome/1`); // Redirecionar para a página principal após login
+      navigate(`/userhome/${localStorage.getItem("id")}`); // Redirecionar para a página principal após login
     } else {
       setError("Credenciais inválidas");
     }
