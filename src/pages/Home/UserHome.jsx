@@ -12,46 +12,26 @@ import axios from "axios";
 
 function UserHome() {
   const { tasks } = useTasks();
-  const { users, user: loggedInUser } = useUser();
+  const { user: loggedInUser } = useUser();
   const { id: userIdFromParams } = useParams();
   const navigate = useNavigate();
-  const [participantTasks, setParticipantTasks] = useState([]);
+  const [participantTasks, setParticipantTasks] = useState([]); // Inicializando como uma array vazia
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  /* useEffect(() => {
-    const user = users.find((u) => u.id === parseInt(userIdFromParams, 10));
-    if (!user) {
-      if (loggedInUser && loggedInUser.id.toString() !== userIdFromParams) {
-        navigate(`/userHome/${loggedInUser.id}`);
-      } else {
-        navigate("/");
-      }
-    } else {
-      const filteredTasks = tasks.filter((task) => {
-        if (activeIndex === 0) {
-          return task.assignedTo === user.id;
-        } else {
-          const filter = filterItems[activeIndex].value.toLowerCase();
-          return (
-            task.assignedTo === user.id &&
-            (filter === "abertas"
-              ? task.status.toLowerCase() === "aberta"
-              : task.status.toLowerCase() === "fechada")
-          );
-        }
-      });
-      setParticipantTasks(filteredTasks);
-    }
-  }, [userIdFromParams, tasks, users, navigate, loggedInUser, activeIndex]);
-*/
-
   useEffect(() => {
-    
-    const tasks = axios.get(`http://localhost:8080/api/v1/tasks/${localStorage.getItem("tasksIds")}`);
-    
-  }, []);
+    const fetchTasks = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/v1/tasks/${userIdFromParams}`);
+        setParticipantTasks(response.data); // Atualizando participantTasks com as tarefas retornadas pela API
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+      }
+    };
+
+    fetchTasks();
+  }, [userIdFromParams]);
 
   const handleTaskClick = (taskInfo) => {
     setSelectedTask(taskInfo);
@@ -77,11 +57,11 @@ function UserHome() {
       <Header />
       <main className="home-container">
         <h1 className="home-title">
-          Lista de Tarefas de {localStorage.getItem("name")}
+          Lista de Tarefas de {loggedInUser && loggedInUser.nome}
         </h1>
         {/* Adicione esta linha para mostrar as informações do usuário */}
-        <p>Email: {localStorage.getItem("email")}</p>
-        <p>Cargo: {localStorage.getItem("cargo")}</p>
+        <p>Email: {loggedInUser && loggedInUser.email}</p>
+        <p>Cargo: {loggedInUser && loggedInUser.cargo}</p>
 
         <div className="filter-buttons">
           <TabMenu
@@ -91,10 +71,10 @@ function UserHome() {
           />
         </div>
         <div className="tasks-container">
-          {participantTasks.length === 0 ? (
+          {/* {participantTasks.length === 0 ? (
             <p>Nenhuma tarefa encontrada.</p>
           ) : (
-            tasks.map((task) => (
+            participantTasks.map((task) => (
               <Card
                 key={task.id}
                 title={task.title}
@@ -105,7 +85,7 @@ function UserHome() {
                 <Task taskInfo={task} />
               </Card>
             ))
-          )}
+          )} */}
         </div>
       </main>
       {isModalOpen && <Modal taskInfo={selectedTask} onClose={closeModal} />}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import Task from "../../components/Task/Task";
 import Modal from "../../components/Modal/Modal";
@@ -6,12 +6,26 @@ import { TabMenu } from "primereact/tabmenu";
 import { Card } from "primereact/card";
 import "./MainHome.scss";
 import { useTasks } from "../../contexts/TasksContext";
+import axios from "axios";
 
 function MainHome() {
-  const { tasks } = useTasks();
+  const { tasks, setTasks } = useTasks();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const fetchTasks = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/v1/tasks");
+      setTasks(response.data);
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
 
   const handleTaskClick = (taskInfo) => {
     setSelectedTask(taskInfo);
@@ -28,7 +42,7 @@ function MainHome() {
 
   const filterItems = [
     { label: "Todas", value: "all" },
-    { label: "Abertas", value: "Aberta" },
+    { label: "Abertas", value: "Aberto" },
     { label: "Fechadas", value: "Fechada" },
     { label: "Disponíveis", value: "Disponível" },
   ];
@@ -38,7 +52,7 @@ function MainHome() {
       return true;
     } else {
       const status = filterItems[activeIndex].value.toLowerCase();
-      return task.status.toLowerCase() === status;
+      return task.availability.toLowerCase() === status;
     }
   });
 
@@ -62,7 +76,7 @@ function MainHome() {
               <div key={task.id} onClick={() => handleTaskClick(task)}>
                 <Card
                   title={task.title}
-                  subTitle={`Status: ${task.status}`}
+                  subTitle={`Status: ${task.priority}`}
                   style={{ marginBottom: "1rem", cursor: "pointer" }}
                 >
                   <Task taskInfo={task} />

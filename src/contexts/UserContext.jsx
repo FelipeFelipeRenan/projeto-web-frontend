@@ -1,17 +1,16 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import axios from "axios";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [users, setUsers] = useState([
-,
-  ]);
+  const [users, setUsers] = useState([]);
   const [user, setUser] = useState();
 
-  // Função para atualizar o usuário no contexto
+  // Função para atualizar o usuário no contexto e no localStorage
   const updateUser = (userData) => {
     setUser(userData);
+    localStorage.setItem("loggedInUser", JSON.stringify(userData));
   };
 
   const assignTaskToUser = (userId, task) => {
@@ -44,21 +43,16 @@ export const UserProvider = ({ children }) => {
     // Exemplo de ação a ser realizada após o login (redirecionamento, etc.)
     if (user) {
       console.log("Usuário logado:", user);
-      localStorage.setItem("id", user.id)
-      localStorage.setItem("name", user.nome)
-      localStorage.setItem("email", user.email)
-      localStorage.setItem("cargo", user.cargo)
-      localStorage.setItem("tasks", user.tasksIds)
-
-      console.log("tasks", localStorage.getItem("tasks"))
-      console.log("email", localStorage.getItem("email"))
+      console.log("tasks", user.tasksIds);
+      console.log("email", user.email);
       // Adicione qualquer ação que você deseja realizar após o login aqui
     }
 
-  
   }, [user]); // Este useEffect será acionado quando o valor de 'user' mudar
+
   const logoutUser = () => {
     setUser(null);
+    localStorage.removeItem("loggedInUser");
   };
 
   const addUser = (newUser) => {

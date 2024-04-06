@@ -1,16 +1,18 @@
-import React from "react";
+import  { useEffect, useState } from "react";
+import Header from "../../components/Header/Header";
 import { useUser } from "../../contexts/UserContext";
 import { useParams } from "react-router-dom";
-import "./UserInfos.scss"; // Importe o arquivo SCSS
-import "primereact/resources/themes/md-dark-deeppurple/theme.css"; // Importe o tema do PrimeReact
-import "primereact/resources/primereact.min.css"; // Importe os estilos do PrimeReact
-import Header from "../../components/Header/Header";
+import "./UserInfos.scss";
 
 export default function UserInfos() {
   const { id } = useParams();
   const { users } = useUser();
+  const [participant, setParticipant] = useState(null);
 
-  const participant = users.find((user) => user.id === parseInt(id));
+  useEffect(() => {
+    const userFromLocalStorage = JSON.parse(localStorage.getItem("loggedInUser"));
+    setParticipant(userFromLocalStorage);
+  }, []);
 
   return (
     <>
@@ -23,10 +25,13 @@ export default function UserInfos() {
               <strong>ID:</strong> {participant.id}
             </p>
             <p>
-              <strong>Nome:</strong> {participant.name}
+              <strong>Nome:</strong> {participant.nome}
             </p>
             <p>
               <strong>E-mail:</strong> {participant.email}
+            </p>
+            <p>
+              <strong>Cargo:</strong> {participant.cargo}
             </p>
           </div>
         ) : (
