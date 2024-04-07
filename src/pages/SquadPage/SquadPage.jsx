@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSquad } from "../../contexts/SquadContext";
 import { useUser } from "../../contexts/UserContext";
 import "./SquadPage.scss";
 import Header from "../../components/Header/Header";
 
 export default function SquadPage() {
-  const { squads } = useSquad();
+  const { squads, fetchSquadById } = useSquad();
   const { user } = useUser();
 
   const participantId = user?.id;
+  const userFromLocalStorage = JSON.parse(localStorage.getItem("loggedInUser"));
+
+  useEffect(() => {
+    if (userFromLocalStorage.squadsIds) {
+      fetchSquadById(userFromLocalStorage.squadsIds);
+    }
+  }, [participantId, fetchSquadById]);
 
   const participantSquad = squads.find((squad) =>
-    squad.participants.some((participant) => participant.id === participantId)
+    squad.participantes.some((participant) => participant.id === participantId)
   );
 
   if (!participantSquad) {
@@ -26,16 +33,19 @@ export default function SquadPage() {
         <div>
           <h2>Participantes</h2>
           <ul className="participants-list">
-            {participantSquad.participants.map((participant) => (
+            {participantSquad.participantes.map((participant) => (
               <li key={participant.id} className="participant-item">
-                <span className="participant-name">{participant.name}</span> -{" "}
-                {participant.tasks.length} tasks
+                <span className="participant-name">{participant.nome}</span> -{" "}
+                {participant.tasksIds.length} tasks
                 <ul className="task-list">
-                  {participant.tasks.map((task) => (
-                    <li key={task.id} className="task-item">
-                      {task.description} - {task.status}
-                    </li>
-                  ))}
+                  {participant.tasksIds.map((taskId) => {
+                    const task = participantSquad.sprint.tasks.find((t) => t.id === taskId);
+                    return (
+                      <li key={taskId} className="task-item">
+                        {task.description} - {task.status}
+                      </li>
+                    );
+                  })}
                 </ul>
               </li>
             ))}

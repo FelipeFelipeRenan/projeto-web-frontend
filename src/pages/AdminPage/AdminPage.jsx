@@ -24,7 +24,7 @@ export default function AdminPage() {
     const fetchData = async () => {
       try {
         const tasksResponse = await axios.get(
-          "http://localhost:8080/api/v1/tasks"
+          "http://localhost:8080/api/v1/tasks"  
         );
         setTasks(tasksResponse.data);
         console.log(tasksResponse.data);
