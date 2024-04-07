@@ -24,7 +24,17 @@ function UserHome() {
     const fetchTasks = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/api/v1/tasks/${userIdFromParams}`);
-        setParticipantTasks(response.data);
+        const taskData = response.data; // Aqui obtemos os dados da tarefa
+        const formattedTask = {
+          id: taskData.id,
+          title: taskData.title,
+          status: taskData.availability, // Aqui usamos 'availability' para status
+          description: taskData.description,
+          dueDate: taskData.dueDate,
+          priority: taskData.priority,
+          completed: taskData.completed,
+        };
+        setParticipantTasks([formattedTask]); // Aqui adicionamos a tarefa formatada ao estado
       } catch (error) {
         console.error("Error fetching tasks:", error);
       }
@@ -78,7 +88,7 @@ function UserHome() {
           />
         </div>
         <div className="tasks-container">
-          {/* {participantTasks.length === 0 ? (
+          {participantTasks.length === 0 ? (
             <p>Nenhuma tarefa encontrada.</p>
           ) : (
             participantTasks.map((task) => (
@@ -92,7 +102,7 @@ function UserHome() {
                 <Task taskInfo={task} />
               </Card>
             ))
-          )} */}
+          )}
         </div>
       </main>
       {isModalOpen && <Modal taskInfo={selectedTask} onClose={closeModal} />}
